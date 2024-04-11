@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="Bash iteration">
+	<meta name="keywords" content="bash, tutorial, iteration, while, for, loops">
+	<meta name="author" content="Monica Keith">
+	
+	<link rel="stylesheet" type="text/css" href="styles2.css">
+	<script src="functions.js"></script>
+	<noscript>Sorry, your browser does not support JavaScript. This page needs to have JavaScript enabled.</noscript>
+</head>
+	
+<body>
+	<section>
+		<nav>
+			<a onclick="showContent(1);">The for loop</a>  
+			<a onclick="showContent(2);">for vs while</a> 
+			<a onclick="showContent(3);">The while loop</a> 
+		</nav>
+
+		<article>
+			<br>    
+        		<h2>7. Iteration</h2>
+        		
+        		<div id="pre">
+				<p>In the following section we will learn how to use loops to iterate through the content of arrays or through a list of files. However, we will leave the part of iterating through the content of a file for the next section (File manipulation). Iteration is basically the repetition of a process or group of commands on a list of items. For example, you might use iteration to repeat the same processing steps on the MRI images of a list of subjects, or to manipulate in the same way a list of files. It saves time because instead of typing the same command 100 times to do the exact same thing on 100 subjects, you type it just one time inside a loop. You will use loops (as well as condition-testing) in almost every script that you write.</p>
+				
+				<table>
+					<tr>
+						<th><b>Command</b></th>
+						<th><b>Use</b></th>
+						<th><b>Syntax</b></th>
+					</tr>
+						
+					<tr>
+						<td><font class="bashcommand">for</font></td>
+						<td>For iterating over a series of items within a list (array).</td>
+						<td>
+							for item in list_of_items<br>
+							do<br>
+							&emsp;Commands to run on each item<br>
+							done 
+						</td>
+					</tr>
+						
+					<tr>
+						<td><font class="bashcommand">for</font></td>
+						<td>For iterating through an index.</td>
+						<td>
+							for ((i=1; i<=64; i+=1))<br>
+							do<br>
+							&emsp;Commands to run on each iteration<br>
+							done
+						</td>
+					</tr>
+						
+					<tr>
+						<td><font class="bashcommand">while</font></td>
+						<td>For iterating while a control expression (condition) is true.</td>
+						<td>
+							while condition_is_true<br>
+							do<br>
+							&emsp;Commands to run while the condition is true<br>
+							done 
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div id="content1">
+				<iframe src="content7_1.html" style="border: 0"></iframe>
+			</div>
+					
+			<div id="content2" class="hidden">
+				<iframe src="content7_2.html" style="border: 0"></iframe>
+			</div>
+					
+			<div id="content3" class="hidden">
+				<iframe src="content7_3.html" style="border: 0"></iframe>
+			</div>
+		   </article>
+	</section>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+	<h3>2.1. The vi editor</h3>
+				    <p>
+						There are an unlimited number of editors available for writing shell scripts in Linux and Mac. A few are 
+						installed by default; some are used through the terminal and some others use a graphical interface (GUI). 
+						They all have pros and cons and the decision to use one or another is totally personal. In this section I will 
+						explain how to use the editor vi, which is installed by default in both Linux and MacOS and can be accessed and 
+						used through the terminal window. 
+					</p>
+					
+					These are some of the advantages of vi:
+					<ul>
+						<li>
+							It is available in all Unix systems and any type of terminal.
+						</li>
+						
+						<li>
+							It doesn't require a lot of memory to run. So, if you are running many heavy programs in your computer, 
+							vi is a good option because it won't slow down the machine anymore and will still load very fast.
+						</li>
+						
+						<li>
+							Even though there are a lot of commands that you must learn to become skilled in using this program, once 
+							you learn them you can use very short and fast commands to accomplish a lot of things. For example, you 
+							can delete all the characters from your current cursor location to the end of the line, just by pressing two 
+							times the d in your keyboard (while in command mode). Below you will find a chart with the most commonly used 
+							shortcuts in vi.
+						</li>
+						
+						<li>
+							You can use it to code in different languages (i.e. it also works for Python, HTML, etc.).
+						</li>
+						
+						<li>
+							Some editors add special characters to the text and when you run scripts written in those editors, they could
+							fail. vi doesn't add any special characters, and if it did, they are visible in the editor.
+						</li>
+						
+						<li>
+							If you don't like using your mouse too much, or you don't have a mouse, or your mouse doesn't work 
+							properly, then vi editor is a good choice because you rarely need to use the mouse. Most things are 
+							accomplished using the keyboard.
+						</li>
+					</ul>
+					
+					However, there are some disadvantages too:
+					<ul>
+						<li>
+							The learning curve can be steep, especially for people who are new to programming and not very comfortable 
+							with computers. If you're new to bash, you not only need to learn the language, but also a whole set of 
+							commands specific to this program. 
+						</li>
+						
+						<li>
+							Not being able to use your mouse can end up wasting your time while you learn all the commands that are used 
+							to scroll around the file or jump from one line to another.
+						</li>
+						
+						<li>
+							It doesn't give you any error messages or explanation of why it's not doing what you want. If you type the 
+							wrong command, it will just do nothing (or do the wrong thing).
+						</li>
+					</ul>
+					
+					<p>
+						Generally, many people with relatively good experience programming love this editor. In my opinion, it's a good 
+						tool to use once you are familiar with shell and have been programming for a while. However, it might be a great 
+						option for you if you like challenges or if you are already somehow familiar with shell.
+					</p>
+					
+					<p>
+						To create a new file, type (on the command line) 
+						<font class="bashcommand">vi &lt;filePath&gt;/&lt;filename&gt;</font>. For example, if you want to create a file 
+						called test.sh in the desktop, you should type <font class="bashcommand">vi ~/Desktop/test.sh</font>. The vi 
+						editor will open in the current terminal.
+					</p>
+					
+					<p>
+						This program runs in two modes, the command mode and the typing mode. By default, it opens in command mode. 
+						What this means is that anything you type is not actually being registered in the file but are commands. For 
+						example, if you type <font class="bashcommand">:q!</font> as soon as you open the file, it will quit without 
+						saving (because <font class="bashcommand">:q!</font> is the command for ignoring any modifications and exiting. 
+						If you type <font class="bashcommand">:w</font> it will save changes to the file (or if you haven't write 
+						anything, it will just create an empty file). To change to typing mode, type <font class="bashcommand">a</font> 
+						(<font class="bashcommand">a</font> is the command for entering typing mode). After you type a (in lower case), 
+						you can start editing your file. To go back to command mode (for example to save changes), press the key 
+						<font class="bashcommand">esc</font> (top left corner of the keyboard).
+					</p>
+					
+					<p>
+						<font class="example">Using the vi editor for the first time</font>
+						Open the vi editor, create a script that prints "Hello Word", and save it with the file name helloword.sh
+					</p>
+					
+					<p>
+						Step 1: Open the vi editor<br><br>
+						<img src="vi_1.png"/>
+					</p>
+					
+					<p>
+						Step 2: Type <font class="bashcommand">a</font> to start editing the file. You will see that an 
+						<b>--Insert--</b> message in the bottom of the terminal appears. This means that now you are in typing mode.<br><br>
+						<img src="vi_2.png"/>
+					</p>
+					
+					<p>
+						Step 3: Start typing commands. The simplest command, to print a message such as 
+						<font class="bashcommand">"Hello World"</font> (or any other) is <font class="bashcommand">echo</font>. The 
+						syntax of this command is the word <font class="bashcommand">echo</font> followed by the message you want to 
+						print out between quotation marks (in this case <font class="bashcommand">"Hello World!"</font>).<br><br>
+						<img src="vi_3.png"/>
+					</p>
+					
+					<p>
+						Step 4: Once you finish your script, press the <font class="bashcommand">esc</font> key to enter command mode. 
+						You will see that the <b>--Insert--</b> message at the bottom of the terminal disappears (this means that now 
+						you are in command mode).<br><br>
+						<img src="vi_4.png"/>
+					</p>
+					
+					<p>
+						Step 5: Save changes and exit the vi editor. In order to do this, type <font class="bashcommand">:wq</font> 
+						(to write (<font class="bashcommand">w</font>) and quit (<font class="bashcommand">q</font>) at the same time). 
+						The table below will show you the most commonly used commands for vi.<br><br>
+						<img src="vi_5.png"/>
+					</p>
+					
+					<p>
+						Step 6: To be able to execute the script, you will have to give it running permissions. The topic of 
+						permissions is a lot more complicated, so I will not go into details now (I will talk about it later). For now, 
+						all you need to know is that to give running permissions to your script you have to type 
+						<font class="bashcommand">chmod 775 helloword.sh</font><br><br>
+						<img src="vi_6.png"/>
+					</p>
+					
+					<p>The following table shows a list of vi commands that can be used in command mode and the action that will 
+						happen in each case. In general, a number preceding any vi command will tell vi to repeat the command that 
+						number of times. For example, <font class="bashcommand">p</font> is the command for pasting. If you write 
+						(in command mode) <font class="bashcommand">2p</font>, then vi will paste whatever you copied two times where 
+						the cursor is currently located.</p>
+					
+					<table>
+						<caption>List of vi commands</caption>
+						<tr>
+							<th style="width:30%"><b>Key/command</b></th>
+							<th style="width:70%"><b>Action</b></th>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">[ESC]</font></td>
+							<td>Switch to command mode</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">[ctrl] b</font></td>
+							<td>Scroll backward one screen</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">[ctrl] d</font></td>
+							<td>Scroll down half screen</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">[ctrl] f</font></td>
+							<td>Scroll forward one screen</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">[ctrl] u</font></td>
+							<td>Scroll up half screen</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">.</font></td>
+							<td>Repeat last command</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">$</font></td>
+							<td>Go to end of line</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">? string</font></td>
+							<td>Search backward for <font class="bashcommand">string</font></td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">/ string</font></td>
+							<td>Search forward for string</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:0</font></td>
+							<td>Go to beginning of line</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:N</font></td>
+							<td>Go to line <font class="bashcommand">N</font></td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:N,Md</font></td>
+							<td>Delete lines <font class="bashcommand">N</font> to <font class="bashcommand">M</font></td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:N,MmP</font></td>
+							<td>Move lines <font class="bashcommand">N</font> to <font class="bashcommand">M</font> and paste them after line <font class="bashcommand">P</font></td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:N,MtP</font></td>
+							<td>Copy lines <font class="bashcommand">N</font> to <font class="bashcommand">M</font> and paste them after line <font class="bashcommand">P</font></td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:N,Mw file</font></td>
+							<td>Save lines <font class="bashcommand">N</font> to <font class="bashcommand">M</font> to file</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:q</font></td>
+							<td>Quit (does not save any changes)</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:q!</font></td>
+							<td>Ignore any modifications made and quit</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:%s/old/new/option</font></td>
+							<td>
+							Searches and replaces the string <font class="bashcommand">old</font> by the string 
+							<font class="bashcommand">new</font> in the entire file<br>
+							The following letters can be added in the field <font class="bashcommand">option</font>:<br>
+							<font class="bashcommand">c</font> to prompt for confirmation<br>
+							<font class="bashcommand">g</font> to replace all the occurrences of the string
+							</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:s/old/new/option</font></td>
+							<td>
+							Searches and replaces the string <font class="bashcommand">old</font> by the string 
+							<font class="bashcommand">new</font> in the line in which the cursor is located</br>
+							The following letters can be added in the field <font class="bashcommand">option</font>:</br>
+							<font class="bashcommand">c</font> to prompt for confirmation<br>
+							<font class="bashcommand">g</font> to replace all the occurrences of the string
+							</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:set ignorecase</font></td>
+							<td>Ignore case sensitivity during search</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:set noignorecase</font></td>
+							<td>Restore case sensitivity during search</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:set number</font></td>
+							<td>Turn on line numbering</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:set nonumber</font></td>
+							<td>Turn off line numbering</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:syntax on</font></td>
+							<td>Turn on syntax colors in the text</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:syntax off</font></td>
+							<td>Turn off syntax colors in the text</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:w</font></td>
+							<td>Save changes</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:w file</font></td>
+							<td>Save changes to file</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:wq</font></td>
+							<td>Save changes and quit</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:x</font></td>
+							<td>Save changes and quit</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">a</font></td>
+							<td>Switch to editing mode and continue writing where the cursor is located</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">A</font></td>
+							<td>Switch to editing mode and continue writing at the end of the line where the cursor is located</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">i</font></td>
+							<td>Switch to editing mode and continue writing where the cursor is located</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">I</font></td>
+							<td>Switch to editing mode and continue writing at the beginning of the line where the cursor is
+							located</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">cw</font></td>
+							<td>Delete the rest of the word in which the cursor is located (keeps the characters located before the 
+							cursor)</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">D</font></td>
+							<td>Delete the rest of the line in which the cursor is located (keeps the characters and words located 
+							before the cursor)</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">dd</font></td>
+							<td>Delete the entire line where the cursor is located</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">dw</font></td>
+							<td>Delete the whole word in which the cursor is located</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">J</font></td>
+							<td>Put the next line at the end of the line where the cursor is located</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">o</font></td>
+							<td>Open line below cursor</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">O</font></td>
+							<td>Open line above cursor</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">p</font></td>
+							<td>Paste below current line</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">P</font></td>
+							<td>Paste above current line</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:u</font></td>
+							<td>Undo previous command</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">:U</font></td>
+							<td>Undo all changes to line</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">x</font></td>
+							<td>Delete text at cursor</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">X</font></td>
+							<td>Delete (backspace) text at cursor</td>
+						</tr>
+						<tr>
+							<td><font class="bashcommand">yy</font></td>
+							<td>Copy line in which the cursor is located</td>
+						</tr>
+					</table>
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+* {
+	box-sizing: border-box;
+}
+			
+body {
+	font-family: Helvetica, sans-serif, Arial;
+	font-size: 14px;
+}
+			
+/* Style the header */
+header {
+	background-color: #666;
+	padding: 5px;
+	text-align: center;
+	font-size: 35px;
+	color: white;
+}
+			
+/* Create two columns/boxes that floats on top of each other */
+nav {
+	overflow: hidden;
+  	background-color: #333;
+  	position: fixed;
+  	top: 0;
+  	width: 100%;
+}
+
+nav a {
+	float: left;
+  	display: block;
+  	color: #f2f2f2;
+  	text-align: center;
+  	padding: 14px 16px;
+  	text-decoration: none;
+  	font-size: 17px;
+}
+
+nav a:hover {
+	background: #ddd;
+  	color: black;
+}
+			
+article {
+	float: left;
+	padding: 30px;
+	width: 100%;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+	nav, article {
+		width: 100%;
+		height: auto;
+	}
+}
+			
+div.hidden {
+	display: none;
+}
+			
+.bashcommand {
+	font-family: Courier;
+	font-size: 10px;
+}
+			
+.bashcommand-result {
+	font-family: Courier;
+	font-size: 10px;
+	color: #808080;
+}
+			
+.example{
+	text-decoration: underline;
+	display: block;
+}
+			
+.example:before{
+	content: "Example: ";
+}
+			
+table {
+	border-collapse: collapse;
+	font-size: 12px;
+}
+			
+caption {
+	padding: 5px;
+	caption-side: bottom;
+}
+			
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	vertical-align: top;
+	padding: 5px;
+}
+			
+tr:nth-child(even){
+	background-color: #dddddd;
+}
+			
+tr:nth-child(1){
+	background-color: #b1b1b1;
+}
+			
+.ghostTable td{
+	border: 0px;
+	background-color: #ffffff;
+}
+
+iframe {
+	overflow: scroll;
+	height: 5000px;
+	width: 100%;
+	border: 1px solid rgb(68, 67, 67);
+}
