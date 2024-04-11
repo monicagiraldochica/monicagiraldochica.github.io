@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+	<title>Neuroimaging Software</title>
+	
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="Installation of neuroimaging software">
+		<meta name="keywords" content="neuroimaging, software, FSL, DSI Studio, Linux">
+		<meta name="author" content="Monica Keith">	
+		
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		<script src="functions.js"></script>
+		<noscript>Sorry, your browser does not support JavaScript. This page needs to have JavaScript enabled.</noscript>
+	</head>
+	
+	<body>
+		<header>
+		  <h2>Installation of NeuroImaging Tools</h2>
+		</header>
+		
+		<section>
+			<nav>
+				<ul>
+					<li><a onclick="showContent(1);">1. FSL 6.0.3 (Ubuntu)</a></li>
+					<li><a onclick="showContent(2);">2. AFNI</a></li>
+					<li><a onclick="showContent(3);">3. Anaconda (Ubuntu)</a></li>
+					<li><a onclick="showContent(4);">4. PsychoPy Standalone (Ubuntu)</a></li>
+					<li><a onclick="showContent(5);">5. DSI Studio (Ubuntu)</a></li>
+					<li><a onclick="showContent(6);">6. MySQL (Ubuntu)</a></li>
+					<li><a onclick="showContent(7);">7. Eclipse (Ubuntu)</a></li>
+					<li><a onclick="showContent(8);">8. GitHub (Ubuntu)</a></li>
+				</ul>
+			</nav>
+			
+			<article>
+				<div id="content1">
+			    	<h2>1. FSL (Ubuntu)</h2>
+				<p>You will need administrative privileges in order to install FSL.</p>
+			    	
+			    	<h3>1.1. Update all your current packages</h3>
+			    	<ul>
+			    		<li>Open your Terminal application:
+			    			<ul>
+			    				<li>Click on the nine dots in the left bottom of the screen. It will show a menu with all the installed applications.</li>
+			    				<li>Scroll down until you see an application called Terminal and click on it. The Terminal will open.</li>
+			    				<li>Navigate to the folder where you downloaded the FSL installer. For example, if the file was downloaded in the Downloads directory, type <font class="bashcommand">$ cd ~/Downloads/</font></li>
+			    			</ul>
+			    		</li>
+			    		<li>(recommended) Type <font class="bashcommand">$ sudo apt-get update</font> to update the <u>package list</u> with the latest versions of your programs (does not actually upgrade or install those new versions).</li>
+			    		<li>(recommended) Type <font class="bashcommand">$ sudo apt-get upgrade</font> to upgrade those programs (already installed in your machine) that have new versions available and install the new versions.</li>
+			    		<li>Type <font class="bashcommand">Y</font> when prompted for confirmation</li>
+			    		<li>Type <font class="bashcommand">$ sudo apt-get dist-upgrade</font>. Because <font class="bashcommand">$ sudo apt-get upgrade</font> only upgrades packages that are already installed in your machine, whenever a new version of a program requires other packages that are not yet installed, <font class="bashcommand">$ sudo apt-get upgrade</font> will not update those packages. However, in those cases <font class="bashcommand">$ sudo apt-get dist-upgrade</font> will still perform the upgrade and resolve any dependencies. If you get any errors or warnings of packages that were kept back with <font class="bashcommand">$ sudo apt-get upgrade</font>, use <font class="bashcommand">$ sudo apt-get dist-upgrade</font> instead.</li>
+			    		<li>Type <font class="bashcommand">Y</font> when prompted for confirmation</li>
+			    	</ul>
+			    	
+			    	<h3>1.2. Check your Python installation</h3>
+			    	<p>
+			    		Make sure that you have Python 2 installed. To do that, type:<br>
+			    		<font class="bashcommand">$ python --version</font><br>
+			    		If you have Python 2 installed, you should see something like this (the exact version will vary but should start with a 2):<br>
+			    		<font class="bashcommand-result">Python 2.7.18</font><br>
+			    		If Python 2 is <b>not</b> installed, you should see something like this:<br>
+			    		<font class="bashcommand-result">-bash: python: command not found</font><br>
+			    		And you can install it with the following command:<br>
+			    		<font class="bashcommand">$ sudo apt install python</font>
+			    	</p>
+				
+				<p>Don't worry about having two versions of Python in case you already have Python3. You can always use <font class="bashcommand">$ python2 &lt;your_python2_script&gt;</font> to run your python2 scripts and <font class="bashcommand">$ python3 &lt;your_python3_script&gt;</font> to run your python3 scripts. Or just <font class="bashcommand">$ python &lt;your_python_script&gt;</font> to run the the python version that you have for default.</p>
+			    	
+			    	<h3>1.3. Register the new license</h3>
+			    	<p>Register at <a href="https://fsl.fmrib.ox.ac.uk/fsldownloads_registration" target="_blank">fsldownloads_registration</a>. Click on [FSL software license] to read and agree to the software license (it won't let you register if you don't do so). Fill the form and select your version of Ubuntu, then click Register. If you are not sure what version of Linux you have, you can type <font class="bashcommand">$ cat /etc/issue</font> in the command line to find out that information.</p>
+			    
+			    	<h3>1.4. Install the software</h3>
+			    	<ul>
+			    		<li>A new page will open after you register. Click on <a href="https://fsl.fmrib.ox.ac.uk/fsldownloads/fslinstaller.py" target="_blank">Download FSL X.X.X</a> (X.X.X will vary depending the latest version available) to download the installer (fslinstaller.py)</li>
+			    		<li>Open your Terminal application:
+			    			<ul>
+			    				<li>Click on the nine dots in the left bottom of the screen. It will show a menu with all the installed applications.</li>
+			    				<li>Scroll down until you see an application called Terminal and click on it. The Terminal will open.</li>
+							<li>I suggest that you add the Terminal application to your favorites (By doing right click on it, then select Add to Favorites) so you can access it from the main Menu. You will use the Termal to analyze all your neuroimaging data.</li>
+			    				<li>Navigate to the folder where you downloaded the FSL installer. For example, if the file was downloaded in the Downloads directory, type <font class="bashcommand">$ cd ~/Downloads/</font></li>
+			    			</ul>
+			    		</li>
+			    		<li>If you have administrative privileges:
+			    			<ul>
+			    				<li>If Python 2 is your default version, Type: <font class="bashcommand">$ python fslinstaller.py</font></li>
+			    				<li>If Python 3 is your default version, Type: <font class="bashcommand">$ python2 fslinstaller.py</font></li>
+			    				<li>Select /usr/local/fsl as the download location for FSL</li>
+			    			</ul>
+			    		</li>	
+			    		<li>Provide your password when prompted</li>
+			    		<li>Log out and back in to complete the setup. If you are connected remotely, close your ssh connection and open a new one.</li>
+			    	</ul>
+			    	
+				<h3>1.5. Update your bash profile</h3>
+				<ul>
+					<li>Open your bash profile: <font class="bashcommand">vi ~/.bashrc</font></li>
+					<li>
+						Paste the following lines:<br>
+						<font class="bashcommand">
+						FSLDIR=/usr/local/fsl<br>
+						. ${FSLDIR}/etc/fslconf/fsl.sh<br>
+						PATH=${FSLDIR}/bin:${PATH}<br>
+						export FSLDIR PATH
+						</font>
+					</li>
+				</ul>
+					
+			    	<h3>1.6. Check the installation</h3>
+			    	<ul>
+			    		<li>Start a new Terminal session</li>
+			    		<li>Check that your environment is correct by typing: <font class="bashcommand">$ echo $FSLDIR</font>. It should show the location you selected during installation.</li>
+			    		<li>Check that your path is correct by typing: <font class="bashcommand">$ flirt -version</font>. The output should be: <font class="bashcommand-result">FLIRT version X.X</font> (X.X will vary depending on the version you installed)</li>
+			    	</ul>
+			    	</div>
+			    
+				<div id="content2" class="hidden">
+			    	<h2>2. AFNI</h2>
+			    	
+			    	<h3>2.1. Update all your current packages</h3>
+			    	<ul>
+			    		<li>Open your Terminal application:
+			    			<ul>
+			    				<li>Click on the nine dots in the left bottom of the screen. It will show a menu with all the installed applications.</li>
+			    				<li>Scroll down until you see an application called Terminal and click on it. The Terminal will open.</li>
+			    				<li>Navigate to the folder where you downloaded the FSL installer. For example, if the file was downloaded in the Downloads directory, type <font class="bashcommand">$ cd ~/Downloads/</font></li>
+			    			</ul>
+			    		</li>
+			    		<li>(recommended) Type <font class="bashcommand">$ sudo apt-get update</font> to update the <u>package list</u> with the latest versions of your programs (does not actually upgrade or install those new versions).</li>
+			    		<li>(recommended) Type <font class="bashcommand">$ sudo apt-get upgrade</font> to upgrade those programs (already installed in your machine) that have new versions available and install the new versions.</li>
+			    		<li>Type <font class="bashcommand">Y</font> when prompted for confirmation</li>
+			    		<li>Type <font class="bashcommand">$ sudo apt-get dist-upgrade</font>. Because <font class="bashcommand">$ sudo apt-get upgrade</font> only upgrades packages that are already installed in your machine, whenever a new version of a program requires other packages that are not yet installed, <font class="bashcommand">$ sudo apt-get upgrade</font> will not update those packages. However, in those cases <font class="bashcommand">$ sudo apt-get dist-upgrade</font> will still perform the upgrade and resolve any dependencies. If you get any errors or warnings of packages that were kept back with <font class="bashcommand">$ sudo apt-get upgrade</font>, use <font class="bashcommand">$ sudo apt-get dist-upgrade</font> instead.</li>
+			    		<li>Type <font class="bashcommand">Y</font> when prompted for confirmation</li>
+			    	</ul>
+					
+				<h3>2.2. Install AFNI</h3>
+				<p>
+				Follow the instructions from the <a href="https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/background_install/install_instructs/overview.html" target="_blank">AFNI web page</a><br>
+				I strongly suggest that you follow the instructions on how to install Miniconda from AFNI web page. You will likely use this tool at some point during your neuroimaging projects.
+				</p>
+					
+				<h3>2.3. Potential errors during installation which are not solved in the AFNI page</h3>
+				<ul>
+					<li>
+						Dependency problems:<br>
+						When installing AFNI in a new linux machine with Ubuntu 20.04.1, I got some <font class="bashcommand">ERROR</font> messages when executing the command <font class="bashcommand">$ rPkgsInstall -pkgs ALL</font> (step 2 from the Rinstallation section).<br>
+						The exact error messages were:<br>
+						<font class="bashcommand">
+							ERROR: dependencies 'lme4', 'gamm4' are not available for package 'projpred'<br>
+							* removing '/home/monica/R/projpred'<br>
+							ERROR: dependencies 'lme4', 'pbkrtest', 'lmerTest', 'car' are not available for package 'afex'<br>
+							* removing '/home/monica/R/afex'<br>
+							ERROR: dependencies 'rstan', 'threejs' are not available for package 'shinystan'<br>
+							* removing '/home/monica/R/shinystan'<br>
+							ERROR: dependencies 'lme4', 'Hmisc' are not available for package 'arm'<br>
+							* removing '/home/monica/R/arm'<br>
+							ERROR: dependencies 'lme4', 'rstan', 'shinystan' are not available for package 'rstanarm'<br>
+							* removing '/home/monica/R/rstanarm'<br>
+							ERROR: dependencies 'rstan', 'shinystan', 'projpred', 'bridgesampling', 'nleqslv' are not available for package 'brms'<br>
+							* removing '/home/monica/R/brms'<br><br>
+						</font>
+						
+						This is how I solved the problem:
+						<ul>
+							<li>
+								Install the missing dependencies:<br>
+								<font class="bashcommand">$ sudo apt install r-cran-lme4 r-cran-gamm4 r-cran-projpred r-cran-pbkrtest r-cran-lmertest r-cran-car r-cran-afex r-cran-rstan r-cran-threejs r-cran-shinystan r-cran-hmisc r-cran-arm r-cran-rstan r-cran-rstanarm r-cran-brms</font><br>
+								You could try installing one by one if you run into more dependencies issues. Add any other dependecies that you need if you get additional errors.
+							</li>
+							<li>Re-run the <font class="bashcommand">$ rPkgsInstall -pkgs ALL</font>. There should be no more errors or warnings. Now it should execute in a few seconds since most of the R packages were already installed.</li>
+						</ul>
+					</li>
+				</ul>
+				</div>
+		
+				<div id="content3" class="hidden">
+			    	<h2>3. Conda (Ubuntu)</h2>
+				<ul>
+					<li>Miniconda: follow the instructions in the <a href="https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/background_install/miniconda.html#" target="_blank">AFNI web page to install Miniconda</a></li>
+					<li>Spyder (Python editor in conda):
+						<ul>
+							<li><font class="bashcommand">conda create --name py37 python=3.7</font></li>
+							<li><font class="bashcommand">conda install --name py37 spyder -c conda-forge</font></li>
+							<li><font class="bashcommand">conda activate py37</font></li>
+							<li><font class="bashcommand">spyder</font></li>
+						</ul>
+					</li>
+					<li>PsychoPy:
+						<ul>
+							<li><font class="bashcommand">conda create -n psychopy python=3.6 anaconda</font></li>
+							<li><font class="bashcommand">pip install psychopy</font></li>
+							<li><font class="bashcommand">conda activate psychopy</font></li>
+							<li><font class="bashcommand">spyder</font></li>
+						</ul>
+					</li>
+				</ul>
+				</div>
+		
+				<div id="content4" class="hidden">
+			    	<h2>4. PsychoPy Standalone (Ubuntu)</h2>
+				<p>Follow the instructions in the <a href="https://www.psychopy.org/PsychoPyManual.pdf" target="_blank">PsychoPy manual</a></p>
+				</div>
+			    
+				<div id="content5" class="hidden">
+			    	<h2>5. DSI Studio (Ubuntu)</h2>
+			    	
+			    	<h3>5.1. Update all your current packages</h3>
+			    	<ul>
+			    		<li>Open your Terminal application:
+			    			<ul>
+			    				<li>Click on the nine dots in the left bottom of the screen. It will show a menu with all the installed applications.</li>
+			    				<li>Scroll down until you see an application called Terminal and click on it. The Terminal will open.</li>
+			    				<li>Navigate to the folder where you downloaded the FSL installer. For example, if the file was downloaded in the Downloads directory, type <font class="bashcommand">$ cd ~/Downloads/</font></li>
+			    			</ul>
+			    		</li>
+			    		<li>(recommended) Type <font class="bashcommand">$ sudo apt-get update</font> to update the <u>package list</u> with the latest versions of your programs (does not actually upgrade or install those new versions).</li>
+			    		<li>(recommended) Type <font class="bashcommand">$ sudo apt-get upgrade</font> to upgrade those programs (already installed in your machine) that have new versions available and install the new versions.</li>
+			    		<li>Type <font class="bashcommand">Y</font> when prompted for confirmation</li>
+			    		<li>Type <font class="bashcommand">$ sudo apt-get dist-upgrade</font>. Because <font class="bashcommand">$ sudo apt-get upgrade</font> only upgrades packages that are already installed in your machine, whenever a new version of a program requires other packages that are not yet installed, <font class="bashcommand">$ sudo apt-get upgrade</font> will not update those packages. However, in those cases <font class="bashcommand">$ sudo apt-get dist-upgrade</font> will still perform the upgrade and resolve any dependencies. If you get any errors or warnings of packages that were kept back with <font class="bashcommand">$ sudo apt-get upgrade</font>, use <font class="bashcommand">$ sudo apt-get dist-upgrade</font> instead.</li>
+			    		<li>Type <font class="bashcommand">Y</font> when prompted for confirmation</li>
+			    	</ul>
+			    	
+			    	<h3>5.2. Install all the dependency packages</h3>
+			    	<p>You could install all of the packages below in a single command but I prefer to install them separately in case one of them has a dependency that is not installed in my computer. To install all at the same time, list all the packages name separated by a space after the word <font class="bashcommand">install</font>. Either way, install first g++ and gcc before installing the others.</p>
+				<p>If you cannot install g++-5 ot gcc-5 (For Ubuntu versions later than 16.04) try installing g++ and gcc</p>
+				<font class="bashcommand">
+				    	<ul>
+				    		<li>$ sudo apt install g++-5</li>
+				    		<li>$ sudo apt install gcc-5</li>
+				    		<li>$ sudo apt install git</li>
+				    		<li>$ sudo apt install libboost-all-dev</li>
+				    		<li>$ sudo apt install zlib1g</li>
+				    		<li>$ sudo apt install zlib1g-dev</li>
+				    	</ul>
+			    	</font>
+				<p>If you have problems installing the dependencies, you might have to use DSI Studio through a <a href="#singularity">singularity container</a> or on a <a href="#ubuntu16">virtual machine with Ubuntu 16.04</a>. Follow the corresponding instructions for each option</p>
+			    	
+			    	<h3>5.3. Download and install Qt 5.12.8</h3>
+			    	<ul>
+			    		<li>Download the <a href="http://download.qt.io/archive/qt/5.12/5.12.8/qt-opensource-linux-x64-5.12.8.run" target="_blank">installer</a></li>
+			    		<li>Navigate to the folder where you downloaded the installer (i.e. <font class="bashcommand">$ cd ~/Downloads/</font>)</li>
+			    		<li>Change the permissions of the installation file so it can be executed: <font class="bashcommand">$ chmod 775 qt-opensource-linux-x64-5.12.8.run</font></li>
+			    		<li>Execute the installer: <font class="bashcommand">$ ./qt-opensource-linux-x64-5.12.8.run</font>. You will need access to the computer screen (instead of a ssh connection) because this will open an installation GUI.</li>
+			    		<li>If you get a waring about the Qt account settings file missing, it's ok, it will be created once you log in or create an account. Check that the file was actually created after the installation (If you get the warning, it will show the expected path of the file).</li>
+			    		<li>Login to your Qt Account or sign up for one when prompted, and accept the service terms</li>
+			    		<li>Check your email and verify your Qt account before clicking Next</li>
+			    		<li>Follow the instructions of the installer. When prompted to select the components, select all of them</li>
+			    		<li>Write down the folder where Qr5.12.8 was installed (the information will be provided to you during installation) because you will need to remember it in the next section</li>
+			    		<li>You can close the Qt application if it launches</li>
+					<li>Re-run the commands from section 2.1. in case there is a new version of Qt available or of any of the dependencies installed in section 2.2.</li>
+			    	</ul>
+			    	
+			    	<h3>5.4. Download the DSI Studio installer</h3>
+			    	<ul>
+			    		<li>Create a working directory where the installation files will be saved. For example, in your home directory (i.e. <font class="bashcommand">$ mkdir /home/myuser/dsistudio</font>)</li>
+			    		<li>Navigate into the directory that you just created (i.e. <font class="bashcommand">$ cd /home/myuser/dsistudio</font>)</li>
+			    		<li>Download the source code of DSI Studio from Github: <font class="bashcommand">$ git clone -b master git://github.com/frankyeh/DSI-Studio.git src</font></li>
+			    		<li>A folder called src should now appear in your current directory (to check type <font class="bashcommand">$ ls</font>)</li>
+			    		<li>Create the following subdirectory inside the src folder: <font class="bashcommand">$ mkdir src/tipl</font></li>
+			    		<li>Download frankyeh-TIPL zip folder: <font class="bashcommand">$ xdg-open https://github.com/frankyeh/TIPL/zipball/master</font></li>
+			    		<li>Move the downloaded zip file to the tipl folder we just created if downloaded elsewhere</li>
+			    		<li>Navigate to that directory: <font class="bashcommand">$ cd src/tipl</font></li>
+			    		<li>Unzip the zip file: (i.e.<font class="bashcommand">$ unzip frankyeh-TIPL-2020_07-0-g8eb8d76.zip</font>) The actual file name will vary depending on when/what version you download.</li>
+			    		<li>Move all the contents of the unzipped folder to the current directory (src/tipl): (i.e. <font class="bashcommand">$ mv frankyeh-TIPL-8eb8d76/* .</font>)</li>
+			    		<li>Remove the zip and unzipped (which now should be empty) files: (i.e. <font class="bashcommand">rm -r frankyeh-TIPL-2020_07-0-g8eb8d76.zip frankyeh-TIPL-8eb8d76</font>)</li>
+			    	</ul>
+			    	
+			    	<h3>5.5. Compile</h3>
+			    	<ul>
+			    		<li>Go back to your DSI studio folder (i.e. <font class="bashcommand">$ cd /home/myuser/dsistudio</font>)</li>
+			    		<li>Create a directory to build and compile: <font class="bashcommand">$ mkdir build</font></li>
+			    		<li>Navigate to that directory: <font class="bashcommand">$ cd build</font></li>
+			    		<li>Execute qmake, which is installed in the Qt5.12.5 directory (and I wrote above to remember its path). i.e. if my installation folder for Qt5 is /home/myuser/Qt5.12.8, then this is the command I would run to execute qmake: <font class="bashcommand">$ /home/myuser/Qt5.12.8/5.12.8/gcc_64/bin/qmake ../src</font></li>
+			    		<li>You should see something like this: <font class="bashcommand-result">Info: creating stash file /home/myuser/dsistudio/build/.qmake.stash</font></li>
+			    		<li>Compile: <font class="bashcommand">$ make</font></li>
+						<ul>
+			    				<li>Wait until it finishes compiling. This could take several few minutes. If everything goes well, you should find dsi_studio under build directory (Which should be the current directory). To check type <font class="bashcommand">ls dsi_studio</font>. You should get: <font class="bashcommand-result">dsi-studio</font>. If there was an error in the installation, you will get something like this: <font class="bashcommand-result">ls: cannot access 'dsi_studio': No such file or directory</font>. If this happens, do <b>not</b> continue with the installation, check the previous steps. Did you get any error running a previous step? Did you get a message of some package or dependency that needs to be installed? Any error should be fixed right away or the installation wont be completed successfully.</li>
+							<li>If you have an Ubuntu version higher than Ubuntu 16, there is a high chance that you will have problems compiling dsi_studio. If you didn't have any errors in the previous steps and are not missing any package or dependency that needs to be installed but still get compiling errors, you will have to use a singularity container to run dsi_studio. You will get an error in the Makefile when compiling, something like this: <font class="bashcommand-result">error: *** [Makefile:11814: RegionModel.o] Error 1</font>. In that case, skip the following sections and jump to <a href="#singularity">5.9. Using DSI Studio through a singularity container.</a> and follow the instructions.</li>
+							<li>If that still fails (dsi_studio has many issues running on Linux), try <a href="#ubuntu16">installing dsi_studio on a virtual machine with Ubuntu 16.04</a></li>
+						</ul>
+					<li>If you were able to compile dsi_studio, remove unnecessary files: <font class="bashcommand">$ make clean</font> and continue to section 5.6.</li>
+			    	</ul>
+			    	
+			    	<h3 id="atlas">5.6. Download the atlas files from the Windows installer</h3>
+			    	<ul>
+			    		<li>Go back to the dsistudio directory: <font class="bashcommand">$ cd ..</font></li>
+			    		<li>Download the Windows installer from one of the following locations:
+			    			<ul>
+			    				<li><a href="https://drive.google.com/open?id=0ByehavN7OmC7MlVHVTgyVFBNQmc" target="_blank">DSI Studio Google Drive folder</a></li>
+			    				<li><a href="https://www.dropbox.com/s/oofozwq3toyh2m4/dsi_studio_64.zip?dl=0" target="_blank">DSI Studio Dropbox folder</a></li>
+			    				<li><a href="https://pitt.box.com/v/dsi-studio-win" target="_blank">DSI Studio Box folder</a></li>
+			    				<li><a href="https://1drv.ms/u/s!Ap9BQsu66jeblKEayFJqQRB7WL0OEw?e=Z0A7sX" target="_blank">DSI Studio One Drive folder</a></li>
+			    			</ul>
+			    		</li>
+			    		<li>Move into the current directory (dsistudio) if downloaded elsewhere</li>
+			    		<li>Unzip the file: <font class="bashcommand">$ unzip dsi_studio_64.zip</font></li>
+			    		<li><font class="bashcommand">$ cd dsi_studio_64</font></li>
+			    		<li>Remove unnecessary files (that are for Windows):
+			    			<font class="bashcommand">
+			    			<ul>
+			    				<li>find . -name '*.dll' -exec rm {} \;</li>
+			    				<li>rmdir iconengines imageformats platforms styles</li>
+			    				<li>rm dsi_studio.exe vc_redist.x64.exe</li>
+			    				<li>rm ../dsi_studio_64.zip</li>
+			    			</ul>
+			    			</font>
+			    		</li>
+			    		<li>Move the DSI Studio executable into the current directory: <font class="bashcommand">$ cp ../build/dsi_studio .</font></li>
+			    	</ul>
+			    	
+			    	<h3>5.7. Check the installation</h3>
+			    	<ul>
+			    		li>Try to run DSI Studio from the terminal: <font class="bashcommand">$ ./dsi_studio</font></li>
+			    		<li>If the installation finished successfully, the application should open. If you get an error saying dsi_studio not found. Try writing the full path to the dsi_studio executable. For example: <font class="bashcommand">/home/user/dsi_studio/dsi_studio</font></li>
+			    	</ul>
+					
+				<h3>5.8. Potential errors during installation</h3>
+				<p>It's not uncommon to run into issues while installing DSI Studio. I could not possibly describe all the possible problems you could run into but here are a few examples of errors I have run into and how I solved them:</p>
+				
+				<h4><font class="bashcommand">N: Skipping acquire of configured file 'main/binary-i386/Packages' as repository 'https://download.mono-project.com/repo/ubuntu stable-focal InRelease' doesn't support architecture 'i386'</font> while upgrading or updating your packages</h4>
+				<p>In this example the error occured when updating the mono package. But it could happen for any other package. To solve the issue, I typed the following commands. Replace the list file for the one corresponding to the package you are having issues with.</p>
+				<ul>
+					<li>Type <font class="bashcommand">$ /etc/apt/sources.list.d/</font> and look for the .list file corresponding to the problematic repository. In my case it was: mono-official-stable.list</li>
+					<li>Type <font class="bashcommand">$ sudo gedit /etc/apt/sources.list.d/mono-official-stable.list</font>. Replace gedit by <font class="bashcommand">vi</font> or <font class="bashcommand">nano</font> or you favorite editor.</li>
+					<li>
+						The file should contain one line that starts with the word <font class="bashcommand">deb</font> and contains the https address from the error you got when updating your packages. Place <font class="bashcommand">[arch=amd64]</font> between <font class="bashcommand">deb</font> and the http address.<br>
+						For me, this is how the like look before the edits:<br>
+						<font class="bashcommand">deb https://download.mono-project.com/repo/ubuntu stable-focal main</font><br>
+						And this is how it looked after the edits:
+						<font class="bashcommand">deb [arch=amd64] https://download.mono-project.com/repo/ubuntu stable-focal main</font>
+					</li>
+					<li>Re-run the update or upgrade command that gave the error</li>
+				</ul>
+					
+				<h3 id="singularity">5.9. Using DSI Studio through a singularity container</h3>
+				<ul>
+					<li>Check if you have Docker installed in your computer. And install it if you don't.</li>
+					<ul>
+						<li>To check if you have Docker installed, type <font class="bashcommand">docker --version</font> in the command line.</li>
+						<li>If Docker is already installed, you will see something like this (will differ depending on your version): <font class="bashcommand-result">Docker version 19.03.13, build cd8016b6bc</font></li>
+						<li>If it is not installed, you will get an error saying command not found. In that case, follow the instructions in this <a href="https://docs.docker.com/engine/install/ubuntu/">link</a> to install Docker.</li>
+					</ul>
+					<li>Once docker is installed, enable the NeuroDebian repository following the instructions in the <a href="http://neuro.debian.net/">NeuroDebian web site</a>. Choose your operating system. If you are not a cluster administrator and are just installing the software for a single user in one machine, choose the option "only software with guaranteed freedoms". Then, you will see a list of commands that you have to copy paste in your command line.</li>
+					<li>Install singularity: <font class="bashcommand">sudo apt-get install -y singularity-container</font>. If you have a previously installed configuration, you might be asked the type of configuration that you want. For a single user, choose the one by default. Check the <a href="https://singularity.lbl.gov/docs-config">admin docs</a> for cluster admins.</li>
+					<li>Check that singularity was correctly installed: <font class="bashcommand">singularity --version</font>. You should see the singularity version.</li>
+					<li>Create the dsi_studio image file:</li>
+						<ul>
+							<li>Type <font class="bashcommand">singularity pull docker://dsistudio/dsistudio</font> in the command line</li>
+							<li>The path and file name of the dsi_studio image will be printed. Save this path, because you will need it to run dsi_studio commands.</li>
+						</ul>
+					<li>Open the dsi_studio GUI:</li>
+						<ul>
+							<li>Type the following command, replacing <font class="bashcommand">/home/user/dsistudio.simg</font> by the path were the dsi_studio image is saved: <font class="bashcommand">singularity exec /home/user/dsistudio.simg dsi_studio</font></li>
+							<li>If that still fails (dsi_studio has many issues running on Linux), try <a href="#ubuntu16">installing dsi_studio on a virtual machine with Ubuntu 16.04</a></li>
+							<li>If it worked, go to section <a href="#atlas">5.6. Download the atlas files from the Windows installer</a></li>
+							<li>Go to step 5.1. again and try installing DSI Studio on your virtual machine</li>
+						</ul>
+				</ul>
+				
+				<h3 id="ubuntu16">5.10. Using DSI Studio on a virtual machine with Ubuntu 16.04</h3>
+				<ul>
+					<li>Download VirtualBox 6.1</li>
+					<ul>
+						<li>Follow this <a href="https://www.virtualbox.org/wiki/Download_Old_Builds_6_1">link</a></li>
+						<li>Select the OS of your host machine. For example, if you have Ubuntu 20, click on Ubuntu 19.10 / 20.04</li>
+						<li>Double click on the installer and follow the instructions</li>
+						<li>Download the <a href="https://releases.ubuntu.com/16.04/">iso image</a> for Ubuntu-16.04-desktop version</li>
+						<li>Open Oracle Virutal Box</li>
+						<li>Follow the instructions in this <a href="https://medium.com/@tushar0618/install-ubuntu-16-04-lts-on-virtual-box-desktop-version-30dc6f1958d0">link</a> to install Virtual Box and start the Ubuntu 16.04 image</li>
+						<li>Follow the instructions in the following <a href="http://www.nemotos.net/?p=1878">link</a> to install DSI Studio on Ubuntu 16.04</li>
+					</ul>
+				</ul>
+			    	</div>
+			    
+		         	<div id="content6" class="hidden">
+			    	<h2>6. MySQL (Ubuntu)</h2>. 
+				</div>
+		
+				<div id="content7" class="hidden">
+			    	<h2>7. Eclipse (Ubuntu)</h2>
+				</div>
+		
+				<div id="content8" class="hidden">
+			    	<h2>8. GitHub (Ubuntu)</h2>
+				</div>
+			</article>
+		</section>
+		
+		<footer>
+			<p>
+				Last update: Nov 05 / 2020<br>
+				All of the content of this tutorial was copied from different parts of each software web page or from external blogs, and organized into one single tutorial<br>
+				The DSI Studio installation was copied and re-formated from this blog, which is referenced in the DSI Studio page: <a href="http://www.nemotos.net/?p=1878" target="_blank">K-Lab</a><br>
+				Author: <a href="http://linkedin.com/in/monicakeithmri" target="_blank">Monica Keith</a><br>
+				For more tutorials of the same author: <a href="http://https://mgiralch7.github.io/" target="_blank">Monica Keith's Blog</a>
+			</p>
+		</footer>
+	</body>
+</html>
