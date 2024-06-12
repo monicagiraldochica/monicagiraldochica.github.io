@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<h2>4. Singularity (Ubuntu)</h2>			    	
+			    <p>You will need administrative privileges in order to install Singularity.</p>
+			    	
+			    <p>You can install Singularity as a container platform in order to create and run containers that package up pieces of software in a way that is portable and reporoducible. You can build a container to run any neuroimaging application in your local computer and then run it on the cluster without having to worry if the cluster has the software or version of the software you need installed.</p>
+			    	
+			    <h3>4.1. Open your Terminal application if you havent done so.</h3>
+			    <ul>
+			    	<li>Click on the nine dots in the left bottom of the screen. It will show a menu with all the installed applications and a search bar at the top.</li>
+			    	<li>Type Terminal in the search bar.</li>
+			    	<li>Click on the application. The Terminal will open.</li>
+			    </ul>
+			    	
+			    <h3>4.2. Update all your current packages</h3>
+			    <ul>
+			    	<li>Type `sudo apt-get update` to update the <u>package list</u> with the latest versions of your programs (does not actually upgrade or install those new versions). You will have to type the administrator password.</li>
+			    	<li>Type `apt-get upgrade` to upgrade those programs (already installed in your machine) that have new versions available and install the new versions.</li>
+			    	<li>Type `Y` when prompted for confirmation</li>
+			    	<li>If you get any errors or warnings of packages that were kept back because of any dependencies errors. run `sudo apt-get dist-upgrade` instead. The previous commmand only upgrades packages that are already installed in your machine. However, if a new version of a program requires other packages that are not yet installed or have been removed for some reason, `sudo apt-get upgrade` will not update those packages. On the other hand, `sudo apt-get dist-upgrade` will perform the upgrade and resolve any dependencies.</li>
+			    </ul>
+					
+				<h3>4.3. Find out the version of the Operating System installed in your machine and the architecture</h3>
+				<p>Type `uname -v`. One line of information will be printed which will contain a set of fields separated by spaces. The first field will show your Operating System. In my case, it says `Linux`. The 13th field will print your system architecture. If will be something like `x86_64`. In this case, the computer has an amd64 architecture. Most computers carrying Ubuntu will have amd64 as architecture. However, this might be different if you're using a Linux virtual machine on a Mac computer where you will see `arm64` instead of `x86_64`. If you have a different architecture than amd64, change the value of the variable ARCH to your corresponsing architecture in the commands below. If you don't do that, you will get an error at some point during the installation.</p>
+				
+				<h3>4.4 Install Singularity and Go</h3>
+				<p>The following instructions install singularity 3.6.3 and Go 1.13.15. If you get any error while running any of these commands, stop and solve those problems before continuing to the next step. If you decide to install a different singularity version, check the corresponding Go version that goes with it.</p>
+
+</html>
