@@ -1,8 +1,5 @@
 #5. MySQL (MacOS)
 
-The following instructions should work in both MacOS and Ubuntu
-
-##Installing MySQL Community Server on any available platform
 1. Get your MacOS version and fins out if you should download the ARM or x86 installer.
     - Click on the apple sign in the upper left corner
     - Click About this Mac
