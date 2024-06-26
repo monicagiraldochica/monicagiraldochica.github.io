@@ -5,9 +5,9 @@
 body {
 	font-family: Helvetica, sans-serif, Arial;
 	font-size: 14px;
+	line-height: 1.6;
 }
 			
-/* Style the header */
 header {
 	background-color: #666;
 	padding: 5px;
@@ -58,17 +58,6 @@ div.hidden {
 	display: none;
 }
 			
-.bashcommand {
-	font-family: Courier;
-	font-size: 10px;
-}
-			
-.bashcommand-result {
-	font-family: Courier;
-	font-size: 10px;
-	color: #808080;
-}
-			
 .example{
 	text-decoration: underline;
 	display: block;
@@ -102,15 +91,61 @@ tr:nth-child(even){
 tr:nth-child(1){
 	background-color: #b1b1b1;
 }
-			
-.ghostTable td{
-	border: 0px;
-	background-color: #ffffff;
-}
 
 iframe {
 	overflow: scroll;
 	height: 5000px;
 	width: 100%;
 	border: 1px solid rgb(68, 67, 67);
+}
+
+code {
+ 	margin: 0 2px;
+ 	padding: 0 5px;
+ 	white-space: nowrap;
+	border: 1px solid #eaeaea;
+	background-color: #f8f8f8;
+	border-radius: 3px;
+	font-size: 12px;
+}
+
+p, blockquote, ul, ol, dl, li, table, pre {
+	margin: 6px 10px; 
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin: 20px 10px 10px;
+	padding: 0;
+	font-weight: bold;
+	-webkit-font-smoothing: antialiased;
+	cursor: text;
+	position: relative; 
+}
+
+h1 {
+	font-size: 28px;
+	color: black; 
+}
+  
+h2 {
+	font-size: 24px;
+	border-bottom: 1px solid #cccccc;
+	color: black; 
+}
+  
+h3 {
+	font-size: 18px; 
+}
+  
+h4 {
+	font-size: 16px; 
+}
+  
+h5 {
+	font-size: 14px; 
+}
+  
+h6 {
+	color: #777777;
+	font-size: 14px; 
 }
