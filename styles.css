@@ -73,26 +73,6 @@ div.hidden {
 	display: none;
 }
 			
-.bashcommand {
-	font-family: Courier;
-	font-size: 10px;
-}
-			
-.bashcommand-result {
-	font-family: Courier;
-	font-size: 10px;
-	color: #808080;
-}
-			
-.example{
-	text-decoration: underline;
-	display: block;
-}
-			
-.example:before{
-	content: "Example: ";
-}
-			
 table {
 	border-collapse: collapse;
 	font-size: 12px;
@@ -116,11 +96,6 @@ tr:nth-child(even){
 			
 tr:nth-child(1){
 	background-color: #b1b1b1;
-}
-			
-.ghostTable td{
-	border: 0px;
-	background-color: #ffffff;
 }
 
 iframe {

@@ -58,15 +58,6 @@ div.hidden {
 	display: none;
 }
 			
-.example{
-	text-decoration: underline;
-	display: block;
-}
-			
-.example:before{
-	content: "Example: ";
-}
-			
 table {
 	border-collapse: collapse;
 	font-size: 12px;
