@@ -343,7 +343,7 @@ kbd {
 
 <p>of different data types In the following commands, I will assign a number to the variable <code>YEAR</code>, a String to the variables <code>MONTH</code> and <code>NAME</code>, and a character to the variable <code>GENDER</code>. As you can observe, numbers, strings and characters should be declared in a different manner.</p>
 
-<div><pre><code class="language-none">$ YEAR=2018
+<div><pre><code class="language-bash">$ YEAR=2018
 $ MONTH=&quot;August&quot;
 $ NAME=&quot;Monica Keith&quot;
 $ GENDER=&#39;F&#39;</code></pre></div>
@@ -352,7 +352,7 @@ $ GENDER=&#39;F&#39;</code></pre></div>
 
 <p>The following commands will produce errors because there is a white space before and/or after the equal sign (<code>=</code>), or because the quotation marks (<code>&quot;</code>) are missing when declaring a string that contains a space. Bellow each erroneous command you can see the error that Bash produces.</p>
 
-<div><pre><code class="language-none">$ NAME =&quot;Monica Keith&quot;
+<div><pre><code class="language-bash">$ NAME =&quot;Monica Keith&quot;
 -bash: NAME: command not found
 $ NAME= &quot;Monica Keith&quot;
 -bash: Monica Keith: command not found
@@ -367,7 +367,7 @@ $ NAME=Monica Keith
 
 <p>In the following example, I will declare variable <code>VAR1</code> with value 2, and variable <code>VAR2</code> with value &quot;Subject&quot;. Then, I will use the function echo to print in the command line the value of the two variables.</p>
 
-<div><pre><code class="language-none">$ VAR1=2
+<div><pre><code class="language-bash">$ VAR1=2
 $ VAR2=&quot;Subject&quot;
 $ echo ${VAR1}
 2
@@ -378,7 +378,7 @@ Subject</code></pre></div>
 
 <p>When referencing a variable, be careful not to include any space before or after the brackets. The following examples will produce an error because of the inclusion of a space around the brackets:</p>
 
-<div><pre><code class="language-none">$ echo ${ VAR2}
+<div><pre><code class="language-bash">$ echo ${ VAR2}
 -bash: ${ VAR2}: bad substitution
 $ echo ${VAR2 }
 -bash: ${VAR2 }: bad substitution
@@ -387,14 +387,14 @@ $ echo ${ VAR2 }
 
 <p>The following erroneous reference (with a space between the dollar sign and the first bracket) will not cause an error but will <strong>not</strong> substitute <code>${VAR2}</code> for the correct value. It will just print <code>$ {VAR2}</code> instead of Subject.</p>
 
-<div><pre><code class="language-none">$ echo $ {VAR2}
+<div><pre><code class="language-bash">$ echo $ {VAR2}
 {VAR2}</code></pre></div>
 
 <h3 id="toc_6">Concatenating variables</h3>
 
 <p>You can concatenate different variables and characters to form new strings. To do this, you will need to reference the variables using the curly brackets and use quotation marks at the beginning and the end of your final string. For example, if you want to use the previously declared variables <code>VAR1</code> and <code>VAR2</code> to generate the String Subject_02, you can concatenate them the following way:</p>
 
-<div><pre><code class="language-none">$ echo ${VAR2}
+<div><pre><code class="language-bash">$ echo ${VAR2}
 Subject
 $ echo ${VAR1}
 2
@@ -403,7 +403,7 @@ Subject_02</code></pre></div>
 
 <p>Here are a few more examples on how to declare and concatenate variables:</p>
 
-<div><pre><code class="language-none">$ ID=&quot;Subject_202&quot;
+<div><pre><code class="language-bash">$ ID=&quot;Subject_202&quot;
 $ VOLUME=20
 $ MEASURE=&quot;mm&quot;
 $ echo &quot;${ID}: ${VOLUME}${MEASURE}&quot;
@@ -432,7 +432,7 @@ $ echo &quot;(${VAR1},${VAR2},${VAR3})&quot;
 <li>Do <strong>not</strong> assign the name <code>PATH</code> to any variable: if you do so, you won&#39;t get any error right away. But it will mess up the execution of other programs. <code>PATH</code> is a system variable that specifies a set of directories where executable programs are located. For example, when you install a software that runs in the command line, the path to the executable of that program will be included in the system variable <code>PATH</code>. So, if you rename that variable, you won&#39;t be able to execute the program again in the current terminal. If you forget about this rule and mistakenly re-write the value of this variable, close the current terminal and open a new one. Every time you open a new terminal, this system variable will be re-set to the correct value (which is stored in the bash_profile, we will talk about this file in a later chapter). At any moment you can know the value of your <code>PATH</code> by typing echo <code>${PATH}</code>. You will see something like this, although this significantly varies between computers depending onwhich programs you have installed and referenced in the bash profile file.</li>
 </ol>
 
-<div><pre><code class="language-none">$ echo ${PATH}
+<div><pre><code class="language-bash">$ echo ${PATH}
 /usr/local/fsl/bin:/Applications/freesurfer/bin:/Applications/freesurfer/fsfast/bin:/Applications/freesurfer/tktools:/usr/local/fsl/bin:/Applications/freesurfer/mni/bin:/Users/bunbury/bin:/Applications/MATLAB_R2018a.app/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin</code></pre></div>
 
 <p>Another Unix reserved name that you should not use is <code>BASH</code>. There is a long list of Unix reserved words that I will not include here but you will learn as you get more experienced.</p>
@@ -499,7 +499,7 @@ $ echo &quot;(${VAR1},${VAR2},${VAR3})&quot;
 
 <p>Saving user input into a new variables:</p>
 
-<div><pre><code class="language-none">$ echo &quot;Username:&quot;
+<div><pre><code class="language-bash">$ echo &quot;Username:&quot;
 Username:
 $ read VAR
 Noemi
@@ -562,14 +562,14 @@ You typed: Noemi</code></pre></div>
 
 <p>Correct syntax:</p>
 
-<div><pre><code class="language-none">$ read -s PASSWORD
+<div><pre><code class="language-bash">$ read -s PASSWORD
 
 $ echo ${PASSWORD}
 ThisIsMyPassword</code></pre></div>
 
 <p>Wrong syntax:</p>
 
-<div><pre><code class="language-none">$ read PASSWORD -s
+<div><pre><code class="language-bash">$ read PASSWORD -s
 ThisIsMyPassword
 -bash: read: `-s&#39;: not a valid identifier</code></pre></div>
 
@@ -581,22 +581,22 @@ ThisIsMyPassword
 
 <p>Correct syntax:</p>
 
-<div><pre><code class="language-none">$ read -p &quot;Please input your password: &quot; -s PASSWORD
+<div><pre><code class="language-bash">$ read -p &quot;Please input your password: &quot; -s PASSWORD
 Please input your password: 
 $ echo ${PASSWORD}
 ThisIsMyPassword</code></pre></div>
 
 <p>Wrong syntax:</p>
 
-<div><pre><code class="language-none">$ read -p -s &quot;Please input your password&quot; PASSWORD
+<div><pre><code class="language-bash">$ read -p -s &quot;Please input your password&quot; PASSWORD
 -s
 -bash: read: `Please input your password&#39;: not a valid identifier</code></pre></div>
 
-<div><pre><code class="language-none">$ read PASSWORD -s -p &quot;Please input your password&quot;
+<div><pre><code class="language-bash">$ read PASSWORD -s -p &quot;Please input your password&quot;
 ThisIsMyPassword
 -bash: read: `-s&#39;: not a valid identifier</code></pre></div>
 
-<div><pre><code class="language-none">$ read -s -p Please input your password
+<div><pre><code class="language-bash">$ read -s -p Please input your password
 ThisIsMyPassword
 $ echo $PASSWORD
 
@@ -611,7 +611,7 @@ ThisIsMyPassword</code></pre></div>
 
 <p>Correct syntax:</p>
 
-<div><pre><code class="language-none">$ read -n 1 -p &quot;Do you wish to continue? (y/n)&quot; VAR
+<div><pre><code class="language-bash">$ read -n 1 -p &quot;Do you wish to continue? (y/n)&quot; VAR
 Do you wish to continue? (y/n)y
 $ echo $VAR
 y
@@ -622,7 +622,7 @@ y</code></pre></div>
 
 <p>Wrong syntax:</p>
 
-<div><pre><code class="language-none">$ read -n -p 1 &quot;Do you wish to continue? (y/n)&quot; VAR
+<div><pre><code class="language-bash">$ read -n -p 1 &quot;Do you wish to continue? (y/n)&quot; VAR
 -bash: read: -p: invalid number</code></pre></div>
 
 <h3 id="toc_13"><code>read -d</code></h3>
@@ -633,14 +633,14 @@ y</code></pre></div>
 
 <p>Correct syntax:</p>
 
-<div><pre><code class="language-none">$ read -d &#39;#&#39; VAR
+<div><pre><code class="language-bash">$ read -d &#39;#&#39; VAR
 
 $ echo $VAR
 SomeText</code></pre></div>
 
 <p>Wrong syntax:</p>
 
-<div><pre><code class="language-none">$ read -d # VAR
+<div><pre><code class="language-bash">$ read -d # VAR
 -bash: read: -d: option requires an argument
 read: usage: read [-ers] [-u fd] [-t timeout] [-p prompt] [-a array] [-n nchars] [-d delim] [name ...]</code></pre></div>
 
@@ -648,7 +648,7 @@ read: usage: read [-ers] [-u fd] [-t timeout] [-p prompt] [-a array] [-n nchars]
 
 <p>In bash, certain characters have special meanings. For example, the dollar sign (`<code>$</code>) is used to reference a variable. When you type <code>${VAR}</code> bash will print the value of <code>VAR</code> instead of the actual string &quot;${VAR}&quot;. The backslash (<code>\</code>) is used to remove those special meanings from the character followed by it.</p>
 
-<div><pre><code class="language-none">$ VAR=&quot;Some text&quot;
+<div><pre><code class="language-bash">$ VAR=&quot;Some text&quot;
 $ echo ${VAR}
 Some text
 $ echo \${VAR}
@@ -658,7 +658,7 @@ ${VAR}</code></pre></div>
 
 <p>Examples using flag <code>-r</code>:</p>
 
-<div><pre><code class="language-none">$ read -r VAR
+<div><pre><code class="language-bash">$ read -r VAR
 C:\Documents\Newsletters\Summer2018.pdf
 $ echo ${VAR}
 C:\Documents\Newsletters\Summer2018.pdf
@@ -669,7 +669,7 @@ In HTML \n is used to indicate a new line</code></pre></div>
 
 <p>Examples without the flag <code>-r</code>:</p>
 
-<div><pre><code class="language-none">$ read VAR
+<div><pre><code class="language-bash">$ read VAR
 C:\Documents\Newsletters\Summer2018.pdf
 $ echo ${VAR}
 C:DocumentsNewslettersSummer2018.pdf
@@ -686,7 +686,7 @@ In HTML n is used to indicate a new line</code></pre></div>
 
 <p>In the following example, read reads the content of the variable VAR, but only keeps the first character (because it is using the <code>-n 1</code> flag):</p>
 
-<div><pre><code class="language-none">$ VAR=yes
+<div><pre><code class="language-bash">$ VAR=yes
 $ read -n 1 R &lt;&lt;&lt; ${VAR}
 $ echo ${R}
 y</code></pre></div>
@@ -695,7 +695,7 @@ y</code></pre></div>
 
 <p><code>read</code> also allows you to read the output of a function and save it in a variable. In this example, we are saving the output of the <code>pwd</code> function into the variable <code>CURRENT_DIR</code>. <code>pwd</code> is a function that prints the current folder in which you are located in the command line.</p>
 
-<div><pre><code class="language-none">$ pwd
+<div><pre><code class="language-bash">$ pwd
 /Users/myUserName
 $ read CURRENT_DIR &lt;&lt;&lt; $(pwd)
 $ echo ${CURRENT_DIR}
