@@ -356,7 +356,7 @@ kbd {
 </tr>
 <tr>
 <td><code>((NUM++))</code></td>
-<td><code>((NUM++))</code> Increases variable <code>NUM</code> in 1 after evaluating any expression that contains <code>NUM++</code>.</td>
+<td>Increases variable <code>NUM</code> in 1 after evaluating any expression that contains <code>NUM++</code>.</td>
 </tr>
 <tr>
 <td><code>((--NUM))</code></td>
@@ -368,7 +368,7 @@ kbd {
 </tr>
 <tr>
 <td><code>((VAR+=NUM))</code></td>
-<td>Increases variable <code>VAR</code> in NUM. Equivalent to <code>VAR=$(( $VAR + $NUM ))</code>.</td>
+<td>Increases variable <code>VAR</code> in <code>NUM</code>. Equivalent to <code>VAR=$(( $VAR + $NUM ))</code>.</td>
 </tr>
 <tr>
 <td><code>((VAR-=NUM))</code></td>
@@ -431,10 +431,10 @@ $ echo $((++NUM))
 $ echo ${NUM}
 2</code></pre></div>
 
-<p>The command echo <code>$((++NUM))</code> is equivalent to this sequence of instructions:</p>
+<p>The command <code>echo $((++NUM))</code> is equivalent to this sequence of instructions:</p>
 
-<div><pre><code class="language-bash">$ NUM=$(( ${NUM} + 1 ))
-$ echo ${NUM}</code></pre></div>
+<div><pre><code class="language-bash">NUM=$(( ${NUM} + 1 ))
+echo ${NUM}</code></pre></div>
 
 <p>First, increases the value of variable <code>NUM</code> in one, and then it echoes the result. Opposite to the example in the left, here the variable value is actually modified. And opposite to the example in the right, the variable value is modified before the other instruction (<code>echo</code>).</p>
 
@@ -446,10 +446,10 @@ $ echo $((NUM++))
 $ echo ${NUM}
 2</code></pre></div>
 
-<p>The command echo <code>$((NUM++))</code> is equivalent to this sequence of instructions:</p>
+<p>The command <code>echo $((NUM++))</code> is equivalent to this sequence of instructions:</p>
 
-<div><pre><code class="language-bash">$ echo ${NUM}
-$ NUM=$(( ${NUM} + 1 ))</code></pre></div>
+<div><pre><code class="language-bash">echo ${NUM}
+NUM=$(( ${NUM} + 1 ))</code></pre></div>
 
 <p>First echoes the value of <code>NUM</code>. Then, it increases the value of the variable.</p>
 
@@ -465,7 +465,7 @@ $ echo $(( ${NUM} - 1 ))
 $ echo ${NUM}
 1</code></pre></div>
 
-<p>The command echo <code>$(( ${NUM} - 1 ))</code> prints the result of <code>NUM</code> minus one, but it does not modify the value of <code>NUM</code>. For that reason, when <code>NUM</code> is echoed at the end, it still has value 1 (instead of 0).</p>
+<p>The command <code>echo $(( ${NUM} - 1 ))</code> prints the result of <code>NUM</code> minus one, but it does not modify the value of <code>NUM</code>. For that reason, when <code>NUM</code> is echoed at the end, it still has value 1 (instead of 0).</p>
 
 <h4 id="toc_9"><code>((--NUM))</code></h4>
 
@@ -475,10 +475,10 @@ $ echo $((--NUM))
 $ echo ${NUM}
 0</code></pre></div>
 
-<p>The command echo <code>$((--NUM))</code> is equivalent to this sequence of instructions:</p>
+<p>The command <code>echo $((--NUM))</code> is equivalent to this sequence of instructions:</p>
 
-<div><pre><code class="language-bash">$ NUM=$(( ${NUM} - 1 ))
-$ echo ${NUM}</code></pre></div>
+<div><pre><code class="language-bash">NUM=$(( ${NUM} - 1 ))
+echo ${NUM}</code></pre></div>
 
 <p>First, decreases the value of variable <code>$NUM</code> in one, and then it echoes the result. Opposite to the example in the left, here the variable value is actually modified. And opposite to the example in the right, the variable value is modified before the other instruction (<code>=</code>).</p>
 
@@ -490,10 +490,10 @@ $ echo $((NUM--))
 $ echo ${NUM}
 0</code></pre></div>
 
-<p>The command echo <code>$((NUM--))</code> is equivalent to this sequence of instructions:</p>
+<p>The command <code>echo $((NUM--))</code> is equivalent to this sequence of instructions:</p>
 
-<div><pre><code class="language-bash">$ echo ${NUM}
-$ NUM=$(( ${NUM} - 1 ))</code></pre></div>
+<div><pre><code class="language-bash">echo ${NUM}
+NUM=$(( ${NUM} - 1 ))</code></pre></div>
 
 <p>First, echoes the value of <code>NUM</code>. Then, it decreases the value of the variable.</p>
 
@@ -524,7 +524,7 @@ $ NUM=$(( ${NUM} - 1 ))</code></pre></div>
 </tr>
 <tr>
 <td><code>B=$((A+=B))</code></td>
-<td><code>A=$(( ${A} + ${B} )); B=${A}</code> In this case the value of both <code>A</code> and <code>B</code> is modified because the result of<code>((A+=B))</code> is assigned to <code>B</code>.</td>
+<td><code>A=$(( ${A} + ${B} )); B=${A}</code> In this case the value of both <code>A</code> and <code>B</code> is modified because the result of <code>((A+=B))</code> is assigned to <code>B</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -556,7 +556,7 @@ $ NUM=$(( ${NUM} - 1 ))</code></pre></div>
 </tr>
 <tr>
 <td><code>B=$((A-=B))</code></td>
-<td><code>A=$(( ${A} - ${B} )); B=${A}</code> In this case the value of both <code>A</code> and <code>B</code> is modified because the result of <code>((A-=B))</code> is assignled to <code>B</code>.</td>
+<td><code>A=$(( ${A} - ${B} )); B=${A}</code> In this case the value of both <code>A</code> and <code>B</code> is modified because the result of <code>((A-=B))</code> is assigned to <code>B</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -598,7 +598,7 @@ $ NUM=$(( ${NUM} - 1 ))</code></pre></div>
 <tbody>
 <tr>
 <td><code>echo &quot;OPERATION&quot; | bc</code></td>
-<td>Evaluates <code>OPERATION</code>. This can be any arithmetic operation with integer or non-integer numbers. Including addition (+), subtraction (<code>-</code>), multiplication (<code>*</code>), division (<code>/</code>), square root (<code>sqrt(NUM)</code>), exponentiation (<code>NUM**EXP</code>), etc. It will round the result to the closest integer.</td>
+<td>Evaluates <code>OPERATION</code>. This can be any arithmetic operation with integer or non-integer numbers. Including addition (<code>+</code>), subtraction (<code>-</code>), multiplication (<code>*</code>), division (<code>/</code>), square root (<code>sqrt(NUM)</code>), exponentiation (<code>NUM**EXP</code>), etc. It will round the result to the closest integer.</td>
 </tr>
 <tr>
 <td><code>echo &quot;OPERATION&quot; | bc -l</code></td>

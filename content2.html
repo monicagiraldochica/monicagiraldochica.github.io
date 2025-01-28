@@ -358,37 +358,37 @@ kbd {
 
 <p>Generally, many people with relatively good experience programming love this editor. In my opinion, it&#39;s a good tool to use once you are familiar with shell and have been programming for a while. However, it might be a great option for you if you like challenges or if you are already somehow familiar with shell.</p>
 
-<p>To create a new file, type (on the command line) vi <filePath>/<filename>. For example, if you want to create a file called test.sh in the desktop, you should type vi ~/Desktop/test.sh. The vi editor will open in the current terminal.</p>
+<p>To create a new file, type (on the command line) <code>vi file_path/file_name</code>. For example, if you want to create a file called test.sh in the desktop, you should type <code>vi ~/Desktop/test.sh</code>. The vi editor will open in the current terminal.</p>
 
-<p>This program runs in two modes, the command mode and the typing mode. By default, it opens in command mode. What this means is that anything you type is not actually being registered in the file but are commands. For example, if you type :q! as soon as you open the file, it will quit without saving (because :q! is the command for ignoring any modifications and exiting. If you type :w it will save changes to the file (or if you haven&#39;t write anything, it will just create an empty file). To change to typing mode, type a (a is the command for entering typing mode). After you type a (in lower case), you can start editing your file. To go back to command mode (for example to save changes), press the key esc (top left corner of the keyboard).</p>
+<p>This program runs in two modes, the command mode and the typing mode. By default, it opens in command mode. What this means is that anything you type is not actually being registered in the file but are commands. For example, if you type :q! as soon as you open the file, it will quit without saving (because :q! is the command for ignoring any modifications and exiting). If you type :w it will save changes to the file (or if you haven&#39;t write anything, it will just create an empty file). To change to typing mode, type a (a is the command for entering typing mode). After you type a (in lower case), you can start editing your file. To go back to command mode (for example to save changes), press the key esc (top left corner of the keyboard).</p>
 
 <p>Using the vi editor for the first time Open the vi editor, create a script that prints &quot;Hello Word&quot;, and save it with the file name helloword.sh</p>
 
-<h3 id="toc_2">Step 1:</h3>
+<h3 id="toc_2">Step 1</h3>
 
 <p>Open the vi editor</p>
 
 <p><img src="./vi_1.png" alt="image1"></p>
 
-<h3 id="toc_3">Step 2:</h3>
+<h3 id="toc_3">Step 2</h3>
 
 <p>Type a to start editing the file. You will see that an <strong>--Insert--</strong> message in the bottom of the terminal appears. This means that now you are in typing mode.</p>
 
 <p><img src="./vi_2.png" alt="image2"></p>
 
-<h3 id="toc_4">Step3:</h3>
+<h3 id="toc_4">Step3</h3>
 
 <p>Start typing commands. The simplest command, to print a message such as &quot;Hello World&quot; (or any other) is echo. The syntax of this command is the word <code>echo</code> followed by the message you want to print out between quotation marks (in this case &quot;Hello World!&quot;).</p>
 
 <p><img src="./vi_3.png" alt="image3"></p>
 
-<h3 id="toc_5">Step4:</h3>
+<h3 id="toc_5">Step4</h3>
 
 <p>Once you finish your script, press the esc key to enter command mode. You will see that the <strong>--Insert--</strong> message at the bottom of the terminal disappears (this means that now you are in command mode).</p>
 
 <p><img src="./vi_4.png" alt="image4"></p>
 
-<h3 id="toc_6">Step5:</h3>
+<h3 id="toc_6">Step5</h3>
 
 <p>Save changes and exit the vi editor. In order to do this, type <code>:wq</code> (to write (w) and quit (q) at the same time). The table below will show you the most commonly used commands for vi.</p>
 
@@ -608,7 +608,7 @@ kbd {
 
 <ol>
 <li>Albeit not mandatory, the first line of any bash script should be the shebang (<code>#!/bin/bash</code>). This line indicates that the script is written in bash (instead of tcsh, for example) and that the bash interpreter should execute it.</li>
-<li>Be organized when writing scripts. As you start writing longer and more complicated programs, this will become more important. Try to comment as often as possible so that other people can understand what your script is doing, which parameters are needed and what they mean or to understand the output. Commenting will also help you fix errors or keep track of the version, changes, authorship, etc, or to remember what your script does if you don&#39;t use it for a while. To insert a comment, you simply start the line with a hash (<code>#</code>). Any line that starts with this symbol will not be executed (except for the shebang). Also try to use indentation to know where pieces of code start and end (for example when doing loops). If you don&#39;t indentate, understanding your own code will be very difficult. Part of being organized is also using appropriate variable names. Use names that are associated to the structure you&#39;re using (for example, if you&#39;re creating an array, naming it array will help you remember that this variable is an array and not a string or a number) and try to use short names (for example, instead of naming a variable myListOfSubjects, you can call it subjList).</li>
+<li>Be organized when writing scripts. As you start writing longer and more complicated programs, this will become more important. Try to comment as often as possible so that other people can understand what your script is doing, which parameters are needed and what they mean or to understand the output. Commenting will also help you fix errors or keep track of the version, changes, authorship, etc, or to remember what your script does if you don&#39;t use it for a while. To insert a comment, you simply start the line with a hash (<code>#</code>). Any line that starts with this symbol will not be executed (except for the shebang). Also try to use indentation to know where pieces of code start and end (for example when doing loops). If you don&#39;t indent, understanding your own code will be very difficult. Part of being organized is also using appropriate variable names. Use names that are associated to the structure you&#39;re using (for example, if you&#39;re creating an array, naming it array will help you remember that this variable is an array and not a string or a number) and try to use short names (for example, instead of naming a variable myListOfSubjects, you can call it subjList).</li>
 <li>It is also a good idea to use the following commands at the beginning of any script:
 
 <ul>
@@ -617,7 +617,7 @@ kbd {
 </ul></li>
 <li>Use double quotes (<code>&quot;</code>) when declaring a string, single quotes (<code>&#39;</code>) when declaring a character, and no quotes when declaring numbers. This will prevent word splitting (when declaring a string that has spaces) and other errors in your code.</li>
 <li>Use functions. This topic will be covered in <a href="content11.html">chapter 11</a>. Using functions will make your code more readable, reusable, and will allow you to run only parts of the code without having to comment all the lines. This is especially useful when debugging or re-running a script.</li>
-<li>If you are declaring a variable that the value should never change, then use the word <code>readonly</code> before the variable name. For example, if I want to declare a variable called age with value 30 and this value should never be replaced, then you should declare <code>readonly age=30</code> instead of <code>age=30</code>. If at some point in the script you try to replace the value of that variable, you will get an error message: <code>-bash: age: readonly variable</code></li>
+<li>If you are declaring a variable that the value should never change, then use the word <code>readonly</code> before the variable name. For example, if I want to declare a variable called age with value 30 and this value should never be replaced, then you should declare <code>readonly age=30</code> instead of <code>age=30</code>. If at some point in the script you try to replace the value of that variable, you will get an error message: <code>-bash: age: readonly variable</code>.</li>
 </ol>
 
 <h2 id="toc_9">2.4. Running a script</h2>
