@@ -2,6 +2,7 @@
 
 Variables can be used to test if a certain condition is true or false, and therefore be able to take a different course of action depending on the result of the test. For example, you might want to evaluate if a file exists to decide if you can copy it into a different folder or not. For condition-testing you will use the `if` command. This command has the following syntax:
 
+```bash
 if [ CONDITION TO EVALUATE ]
 then
     INSTRUCTIONS THAT WILL RUN IF THE CONDITION IS TRUE
@@ -11,8 +12,9 @@ then
 else
     INSTRUCTIONS THAT WILL RUN IF ALL THE PREVIOUS CONDITIONS ARE FALSE
 fi
+```
 
-The CONDITION TO EVALUATE is an expression that follows a specific syntax depending on what you want to test (checking files, string comparison, comparing numbers, or combining different expressions). Lets look at the different syntaxes used in each of these situations and at some examples that will help you understand this seemingly confusing subject.
+The `CONDITION TO EVALUATE` is an expression that follows a specific syntax depending on what you want to test (checking files, string comparison, comparing numbers, or combining different expressions). Lets look at the different syntaxes used in each of these situations and at some examples that will help you understand this seemingly confusing subject.
 
 ## 6.1. Condition-testing to check files
 
