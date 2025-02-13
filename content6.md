@@ -2,21 +2,21 @@
 
 Variables can be used to test if a certain condition is true or false, and therefore be able to take a different course of action depending on the result of the test. For example, you might want to evaluate if a file exists to decide if you can copy it into a different folder or not. For condition-testing you will use the `if` command. This command has the following syntax:
 
-if [ CONDITION_TO_EVALUATE ]
+if [ CONDITION TO EVALUATE ]
 then
     INSTRUCTIONS THAT WILL RUN IF THE CONDITION IS TRUE
-elif [ OTHER_CONDITION_TO_EVALUATE_IF_1ST_CONDITION_IS_FALSE ]
+elif [ OTHER CONDITION TO EVALUATE IF 1ST CONDITION IS FALSE ]
 then
     INSTRUCTIONS THAT WILL RUN IF FIRST CONDITION IS FALSE BUT SECOND IS TRUE
 else
     INSTRUCTIONS THAT WILL RUN IF ALL THE PREVIOUS CONDITIONS ARE FALSE
 fi
 
-The CONDITION_TO_EVALUATE is an expression that follows a specific syntax depending on what you want to test (checking files, string comparison, comparing numbers, or combining different expressions). Lets look at the different syntaxes used in each of these situations and at some examples that will help you understand this seemingly confusing subject.
+The CONDITION TO EVALUATE is an expression that follows a specific syntax depending on what you want to test (checking files, string comparison, comparing numbers, or combining different expressions). Lets look at the different syntaxes used in each of these situations and at some examples that will help you understand this seemingly confusing subject.
 
 ## 6.1. Condition-testing to check files
 
-In the following table, FILE refers to the path of the file or to the variable that contains the path of the file. The spaces after [ and before ] are very important. If those spaces are missing, bash will give an error.
+In the following table, `FILE` refers to the path of the file or to the variable that contains the path of the file. The spaces after [ and before ] are very important. If those spaces are missing, bash will give an error.
 
 | Condition | Meaning |
 |-----------| ------- |
