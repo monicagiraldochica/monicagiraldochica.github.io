@@ -284,3 +284,94 @@ drwxr-xr-x	28	myUser	952B	Sep 10	09:05	MRIdata
 -rw-r--r--@	1	myUser	50K	Jan 14	2017	CV.docx
 drwxr-xr-x	22	myUser	714B	Sep 4	11:40	Articles
 ```
+
+## 8.2. Listing files using patterns
+
+You can print information about a group of files based on patterns using wildcards.
+
+| Wildcard | Meaning |
+| ----------- | ------- |
+| `*` | Matches any number of characters. |
+| `?` | Matches any single character. |
+| `[character_class]` | Marches any character that is a member o the specified character class. See below for a list of Character Classes. |
+| `[!character_class]` | Marches any character that is NOT a member of the specified character class. |
+
+Character Classes:
+
+- `[alnum]`: alphanumeric characters
+- `[alpha]`: alphabetic characters
+- `[digit]`: numerals
+- `[upper]`: uppercase alphabetic characters
+- `[lower]`: lowercase alphabetic characters
+
+Examples:
+
+| Pattern | MAtches |
+| ----------- | ------- |
+| `AB*` | List all the filenames that begin with "AB" |
+| `*AB` | List all the filenames that end with "AB" |
+| `AB*.txt` | List all the filenames that begin with "AB" and end with ".txt" |
+| `AB???` | List all the filenames that begin with "AB" and are followed by exactly three characters |
+| `[aA]*` | List all the filenames that begin with "a" or "A" |
+| `[aA]?.txt` | List all the filenames that begin with "a" or "A" and are followed by one character and ".txt" |
+| `[[:upper:]]*` | List any filenames that begin with an uppercase letter |
+| `[![:upper:]]*` | List any filenames that do not begin with an uppercase letter |
+
+```bash
+$ ls /Volumes/MyDrive/MyFolder/Articles/p*
+/Volumes/MyDrive/MyFolder/Articles/patel and shen.pdf
+/Volumes/MyDrive/MyFolder/Articles/perez 2013.pdf
+/Volumes/MyDrive/MyFolder/Articles/pnas-0502843102.pdf
+/Volumes/MyDrive/MyFolder/Articles/pnas.201604898.pdf
+/Volumes/MyDrive/MyFolder/Articles/pnas01522-0696.pdf
+/Volumes/MyDrive/MyFolder/Articles/poldrack ROI analysis.pdf
+/Volumes/MyDrive/MyFolder/Articles/pone.0088419.pdf
+/Volumes/MyDrive/MyFolder/Articles/pone.0113807.pdf
+/Volumes/MyDrive/MyFolder/Articles/pq004724.pdf
+/Volumes/MyDrive/MyFolder/Articles/pq008939.pdf
+/Volumes/MyDrive/MyFolder/Articles/precuneus.pdf
+/Volumes/MyDrive/MyFolder/Articles/prefrontalCortex.pdf
+```
+
+```bash
+$ ls /Volumes/MyExternalDrive/Shared/Articles/[pr]*
+/Volumes/MyExternalDrive/Shared/Articles/patel and shen.pdf
+/Volumes/MyExternalDrive/Shared/Articles/perez 2013.pdf
+/Volumes/MyExternalDrive/Shared/Articles/pnas-0502843102.pdf
+/Volumes/MyExternalDrive/Shared/Articles/pnas.201604898.pdf
+/Volumes/MyExternalDrive/Shared/Articles/pnas01522-0696.pdf
+/Volumes/MyExternalDrive/Shared/Articles/poldrack ROI analysis.pdf
+/Volumes/MyExternalDrive/Shared/Articles/pone.0088419.pdf
+/Volumes/MyExternalDrive/Shared/Articles/pone.0113807.pdf
+/Volumes/MyExternalDrive/Shared/Articles/pq004724.pdf
+/Volumes/MyExternalDrive/Shared/Articles/pq008939.pdf
+/Volumes/MyExternalDrive/Shared/Articles/precuneus.pdf
+/Volumes/MyExternalDrive/Shared/Articles/prefrontalCortex.pdf
+/Volumes/MyExternalDrive/Shared/Articles/raz 2004.pdf
+/Volumes/MyExternalDrive/Shared/Articles/read1_Brain-2006-Ciccarelli-1859-71.pdf
+/Volumes/MyExternalDrive/Shared/Articles/read2_6165.pdf
+```
+
+```bash
+$ ls /Volumes/MyExternalDrive/Shared/Articles/[pr]*.pdf
+/Volumes/MyExternalDrive/Shared/Articles/patel and shen.pdf
+/Volumes/MyExternalDrive/Shared/Articles/perez 2013.pdf
+/Volumes/MyExternalDrive/Shared/Articles/pnas-0502843102.pdf
+/Volumes/MyExternalDrive/Shared/Articles/pnas.201604898.pdf
+/Volumes/MyExternalDrive/Shared/Articles/pnas01522-0696.pdf
+/Volumes/MyExternalDrive/Shared/Articles/poldrack ROI analysis.pdf
+/Volumes/MyExternalDrive/Shared/Articles/pone.0088419.pdf
+/Volumes/MyExternalDrive/Shared/Articles/pone.0113807.pdf
+/Volumes/MyExternalDrive/Shared/Articles/pq004724.pdf
+/Volumes/MyExternalDrive/Shared/Articles/pq008939.pdf
+/Volumes/MyExternalDrive/Shared/Articles/precuneus.pdf
+/Volumes/MyExternalDrive/Shared/Articles/prefrontalCortex.pdf
+/Volumes/MyExternalDrive/Shared/Articles/raz 2004.pdf
+/Volumes/MyExternalDrive/Shared/Articles/read1_Brain-2006-Ciccarelli-1859-71.pdf
+/Volumes/MyExternalDrive/Shared/Articles/read2_6165.pdf
+```
+
+```bash
+$ ls /Volumes/MyExternalDrive/Shared/Articles/[pr]????????.pdf
+/Volumes/MyExternalDrive/Shared/Articles/precuneus.pdf
+```
