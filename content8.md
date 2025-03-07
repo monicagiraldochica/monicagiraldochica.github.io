@@ -375,3 +375,170 @@ $ ls /Volumes/MyExternalDrive/Shared/Articles/[pr]*.pdf
 $ ls /Volumes/MyExternalDrive/Shared/Articles/[pr]????????.pdf
 /Volumes/MyExternalDrive/Shared/Articles/precuneus.pdf
 ```
+
+## 8.3. Changing the working directory
+
+### The `cd` command
+
+| Option | Usage |
+| --- | --- |
+| `cd ~`  | Goes to the home directory. |
+| `cd dir` | Goes to `dir`, which is a sub directory located in the current directory. |
+| `cd /dir` | Goes to `dir`, which is a sub directory located in the home directory. |
+| `cd ..` | Goes to the parent directory. |
+| `cd -` | Goes to the previous directory. |
+| `cd ~username` | Goes to the user home directory |
+
+`cd` changes the current working directory. The syntax is `cd new_path`, where `new_path` can be the absolute or relative path of the new working directory.
+
+Absolute paths are file locations with respect to the home directory and start with `/`. Relative paths are file locations with respect to the current directory.
+
+Two points (`..`) represent the parent directory. If my current working directory is /Users/user_name/Desktop/SomeFolder, after typing `cd ..` the new working directory will be /Users/user_name/Desktop (one folder up). If you type again `cd ..`, now the working directory will be: /Users/user_name (another folder up), etc.
+
+```bash
+$ pwd
+/Users/user_name/Desktop/SomeFolder
+$ cd ..
+$ pwd
+/Users/user_name/Desktop
+$ cd ..
+$ pwd
+/Users/user_name
+$ cd ..
+$ pwd
+/Users
+$ cd ..
+$ pwd
+/
+```
+
+`/` represents the home directory and you cannot go up any more folders.
+
+In this example, I am using the absolute path of a folder to jump from my current directory to that folder:
+
+```bash
+$ pwd
+/Users/user_name/Desktop/SomeFolder
+$ cd /Volumes/Shared
+$ pwd
+/Volumes/Shared
+```
+
+In this example, I go to the parent directory of my parent directory (`../..`):
+
+```bash
+$ pwd
+/Users/user_name/Desktop/SomeFolder
+$ cd ../..
+$ pwd
+/Users/user_name
+```
+
+If inside my current directory (/Users/user_name/Desktop/SomeFolder) there is another folder (i.e. AnotherFolder), I can go to that folder using its relative path:
+
+```bash
+$ pwd
+/Users/user_name/Desktop/SomeFolder
+$ cd AnotherFolder
+/Users/user_name/Desktop/SomeFolder/AnotherFolder
+```
+
+```bash
+$ pwd
+/Users/user_name/Desktop/SomeFolder
+$ cd ./AnotherFolder
+/Users/user_name/Desktop/SomeFolder/AnotherFolder
+```
+
+In this example, the first working directory is /Volumes/Shared, then, I jump to /Volumes/Shared/Articles using the command `cd`. Finally, I go back to the first working directory (/Volumes/Shared) using `cd -`.
+
+```bash
+$ pwd
+/Volumes/Shared
+$ cd Articles
+$ pwd
+/Volumes/Shared/Articles
+$ cd -
+$ pwd
+/Volumes/Shared
+```
+
+## 8.4. Other frequently used commands for file manipulation
+
+### The `cp` command
+
+Syntax: `cp source target`
+
+If you specify a folder as a target in the `cp` command, it will copy the file with the same name. If you specify a regular file as a target, then it will rename the file in the destination (not in the source, the source file will stay untouched). The source file need not have the same extension. For example, the following command will copy the file /Users/MyUser/Desktop/subjectFolder/534534.bvals into the folder /Volumes/MyExternalDrive, will rename it and delete the extension: `cp /Users/MyUser/Desktop/subjectFolder/534534.bvals /Volumes/MyExternalDrive/bvals`.
+
+Caution! If a file with the same name exists in the source, it will be re-written and this action cannot be undone. For example, if you run the following command: `cp /Users/MyUser/Desktop/test.txt /Volumes/MyExternalDrive/test2.txt` and a file with the same source path (/Volumes/MyExternalDrive/test2.txt) already exists, then that file will be replaced by test.txt. You will not be able to recover the replaced file.
+
+### The `mv` command
+
+Syntax: `mv source target`
+
+The `mv` command works the same way as the `cp` command. The difference is that the source file is moved instead of copied and ceases to exist in the source location.
+
+The following example renames file1.txt to file2.txt in the current folder:
+
+```bash
+$ ls
+Applications
+Library
+Volumes
+bin 
+test1.txt
+$ mv test1.txt test2.txt
+$ ls
+Applications
+Library
+Volumes
+bin 
+test2.txt
+```
+
+In the following example we are moving a file (test1.txt) from one directory (/Users/MyUser/) to another (/Volumes/MyExternalDrive):
+
+```bash
+$ ls /Volumes/MyDrive
+$ ls /Users/MyUser/Desktop
+test1.txt
+$ mv /Users/MyUser/Desktop/test1.txt /Volumes/MyDrive
+$ ls /Volumes/MyDrive
+test1.txt
+$ ls /Users/MyUser/Desktop
+```
+
+### The `rm` command
+
+Syntax: `rm file` or `rm -r folder`
+
+The `rm` command permanently deletes a file or a folder and all its contents. For example, to delete file text1.txt in the current directory, one would use `rm text1.txt`. And to remove the folder myfolder and all its contents, one would use `rm -r myfolder`. These are the flags that you can use:
+
+| Flag | Action |
+| --- | --- |
+| `-f` | Forces deletion without any confirmation |
+| `-i` | Requires confirmation before deleting each file |
+| `-r` | Deletes a directory and all its contents recursively |
+| `-d` | Removes empty directories |
+
+### The `mkdir` command
+
+Syntax: `mkdir folder`
+
+Creates a new directory if it doesn't exist. One can use a relative or an absolute path. `mkdir myfolder` will create a folder named myfolder in the current directory. `mkdir ~/Desktop/myfolder` will create a folder named myfolder in the Desktop.
+
+### The `touch` command
+
+Syntax: `touch filename`
+
+The main use of this command is to create an empty file with the corresponding name. One can create multiple files at the same time, for example: `touch file1.txt file2.txt file3.txt` will create 3 empty text files. But it can also be used for other things depending on which flag you use:
+
+| Flag | Use | Example |
+| --- | --- | --- |
+| `-a` | Change the access time of a file to the current date and time. | `touch -a file1.txt` |
+| `-m` | Update the modification time of a file to the current date and time. | `touch -m file1.txt` |
+| `-d DATE` | Update the modification time of a file to `DATE` | `touch -d "2025-01-20 10:33" myfile.txt` |
+| `-r reference_file` | Update the modification time of a file to the one of `reference_file` | `touch -r myscript.sh myfile.txt` changes the times of `myfile.txt` to those of `myscript.sh` |
+
+### The `find` command
