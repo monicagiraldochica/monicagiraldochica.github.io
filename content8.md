@@ -542,3 +542,80 @@ The main use of this command is to create an empty file with the corresponding n
 | `-r reference_file` | Update the modification time of a file to the one of `reference_file` | `touch -r myscript.sh myfile.txt` changes the times of `myfile.txt` to those of `myscript.sh` |
 
 ### The `find` command
+
+This command is used to locate files and data in the system.
+
+#### Finding a specific file
+
+In the example below `2>/dev/null` silences permission errors. This search is case sensitive. It will search for a file named `"file.txt"` starting in `/Path/to/start/search/`.
+
+```bash
+find /Path/to/start/search/ -name "file.txt" 2>/dev/null
+```
+
+The search in the example below is the same as the one above but with a case insensitive search, thanks to the `-iname` flag.
+
+```bash
+find /Path/to/start/search/ -iname "file.txt" 2>/dev/null
+```
+
+#### Finding a file using a pattern
+
+One could use `-name` instead of `-iname` to make it case sensitive. Here we are searching for files that contain the string `file` in their name, followed by one character and the .txt extension. They can have any or no characters before `file`.
+
+```bash
+find /Path/to/start/search/ -iname "*file?.txt" 2>/dev/null
+```
+
+#### Listing the contents of a directory recursively
+
+In the following example, we list the content of `/Path/to/start/search/` and of all directories inside it and save the info in `file.txt`.
+
+```bash
+find /Path/to/start/search/ -ls
+```
+
+#### Doing something with the output of `find`
+
+One could use the output of `find` to do something, for example, search if any of the files found contain certain text or execute any command on each of those files. To achieve this, we use the flag `-exec`.
+
+The expression **must** have a `\;` or a `+` at the end.
+
+If the expression ends with `\;`, the command or commands after `exec` will be executed of each output file of `find` separately. The semicolon is escaped because we don't want shell to interpret it.
+
+If the expression ends with `+`, all the outputs of `find` will be concatenated and passed as a whole string to the command being executed, and this command will only be run once on this string.
+
+Examples:
+
+Use [`file`](https://linux.die.net/man/1/file) on the output files of `find`: `find /Path/to/start/search/ -name "*.txt" -exec file {} \;`. You could use any shell command instead of `file`.
+
+Use [`basename`](https://linux.die.net/man/1/basename) on the output files of `find`: `find /Path/to/start/search/ -name "*.txt" -exec file {} \;`. You could use any shell command instead of `basename`.
+
+Use grep to process the output of `find`: `find /Path/to/start/search/ -name "*.txt" -exec grep grep_flags {} \;`
+
+Run a function on the output files of `find`:
+
+```bash
+function my_function(){
+    commands
+}
+export -f my_function
+find /Path/to/start/search/ -name "*.txt" -exec bash -c "my_function {}" \;
+```
+
+If I know that some of the output files of find will have some spaces, I should change the last line of the example above to (put escaped quotation marks around the brackets):
+`find /Path/to/start/search/ -name "*.txt" -exec bash -c "my_function \"{}\"" \;`
+
+#### Searching for files of a specific type
+
+Get the list of directories inside `/Path/to/start/search/`: `find /Path/to/start/search/ -type d`
+Get the list of regular files inside `/Path/to/start/search/`: `find /Path/to/start/search/ -type f`
+Get the list of symbolic links inside `/Path/to/start/search/`: `find /Path/to/start/search/ -type l`
+Get the list of files and symbolic links: `find /Path/to/start/search/ -type f,l`
+
+#### Limit the depth of the search
+
+Descend only one directory: `find -maxdepth 1 /Path/to/start/search/ -type d`
+Descend two directories: `find -maxdepth 2 /Path/to/start/search/ -type d`
+
+To search all the flags and options of `find`, type `man find` in your command line. Many more things can be done with this command.

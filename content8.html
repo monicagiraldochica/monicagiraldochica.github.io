@@ -1249,6 +1249,73 @@ $ ls /Users/MyUser/Desktop</code></pre></div>
 
 <h3 id="toc_21">The <code>find</code> command</h3>
 
+<p>This command is used to locate files and data in the system.</p>
+
+<h4 id="toc_22">Finding a specific file</h4>
+
+<p>In the example below <code>2&gt;/dev/null</code> silences permission errors. This search is case sensitive. It will search for a file named <code>&quot;file.txt&quot;</code> starting in <code>/Path/to/start/search/</code>.</p>
+
+<div><pre><code class="language-bash">find /Path/to/start/search/ -name &quot;file.txt&quot; 2&gt;/dev/null</code></pre></div>
+
+<p>The search in the example below is the same as the one above but with a case insensitive search, thanks to the <code>-iname</code> flag.</p>
+
+<div><pre><code class="language-bash">find /Path/to/start/search/ -iname &quot;file.txt&quot; 2&gt;/dev/null</code></pre></div>
+
+<h4 id="toc_23">Finding a file using a pattern</h4>
+
+<p>One could use <code>-name</code> instead of <code>-iname</code> to make it case sensitive. Here we are searching for files that contain the string <code>file</code> in their name, followed by one character and the .txt extension. They can have any or no characters before <code>file</code>.</p>
+
+<div><pre><code class="language-bash">find /Path/to/start/search/ -iname &quot;*file?.txt&quot; 2&gt;/dev/null</code></pre></div>
+
+<h4 id="toc_24">Listing the contents of a directory recursively</h4>
+
+<p>In the following example, we list the content of <code>/Path/to/start/search/</code> and of all directories inside it and save the info in <code>file.txt</code>.</p>
+
+<div><pre><code class="language-bash">find /Path/to/start/search/ -ls</code></pre></div>
+
+<h4 id="toc_25">Doing something with the output of <code>find</code></h4>
+
+<p>One could use the output of <code>find</code> to do something, for example, search if any of the files found contain certain text or execute any command on each of those files. To achieve this, we use the flag <code>-exec</code>.</p>
+
+<p>The expression <strong>must</strong> have a <code>\;</code> or a <code>+</code> at the end.</p>
+
+<p>If the expression ends with <code>\;</code>, the command or commands after <code>exec</code> will be executed of each output file of <code>find</code> separately. The semicolon is escaped because we don&#39;t want shell to interpret it.</p>
+
+<p>If the expression ends with <code>+</code>, all the outputs of <code>find</code> will be concatenated and passed as a whole string to the command being executed, and this command will only be run once on this string.</p>
+
+<p>Examples:</p>
+
+<p>Use <a href="https://linux.die.net/man/1/file" target="_blank"><code>file</code></a> on the output files of <code>find</code>: <code>find /Path/to/start/search/ -name &quot;*.txt&quot; -exec file {} \;</code>. You could use any shell command instead of <code>file</code>.</p>
+
+<p>Use <a href="https://linux.die.net/man/1/basename" target="_blank"><code>basename</code></a> on the output files of <code>find</code>: <code>find /Path/to/start/search/ -name &quot;*.txt&quot; -exec file {} \;</code>. You could use any shell command instead of <code>basename</code>.</p>
+
+<p>Use grep to process the output of <code>find</code>: <code>find /Path/to/start/search/ -name &quot;*.txt&quot; -exec grep grep_flags {} \;</code></p>
+
+<p>Run a function on the output files of <code>find</code>:</p>
+
+<div><pre><code class="language-bash">function my_function(){
+    commands
+}
+export -f my_function
+find /Path/to/start/search/ -name &quot;*.txt&quot; -exec bash -c &quot;my_function {}&quot; \;</code></pre></div>
+
+<p>If I know that some of the output files of find will have some spaces, I should change the last line of the example above to (put escaped quotation marks around the brackets):
+<code>find /Path/to/start/search/ -name &quot;*.txt&quot; -exec bash -c &quot;my_function \&quot;{}\&quot;&quot; \;</code></p>
+
+<h4 id="toc_26">Searching for files of a specific type</h4>
+
+<p>Get the list of directories inside <code>/Path/to/start/search/</code>: <code>find /Path/to/start/search/ -type d</code>
+Get the list of regular files inside <code>/Path/to/start/search/</code>: <code>find /Path/to/start/search/ -type f</code>
+Get the list of symbolic links inside <code>/Path/to/start/search/</code>: <code>find /Path/to/start/search/ -type l</code>
+Get the list of files and symbolic links: <code>find /Path/to/start/search/ -type f,l</code></p>
+
+<h4 id="toc_27">Limit the depth of the search</h4>
+
+<p>Descend only one directory: <code>find -maxdepth 1 /Path/to/start/search/ -type d</code>
+Descend two directories: <code>find -maxdepth 2 /Path/to/start/search/ -type d</code></p>
+
+<p>To search all the flags and options of <code>find</code>, type <code>man find</code> in your command line. Many more things can be done with this command.</p>
+
 
 
 
