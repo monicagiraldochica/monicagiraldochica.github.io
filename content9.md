@@ -314,3 +314,51 @@ g h
 $ echo ${ARRAY[4]}
 i j
 ```
+
+## 9.3. Using the read command for more complex csv files
+
+So far, we have learned that using the `for` loop and the `cat` utility you can read each line of a file and separate it into different fields using a separator. However, csv files can become very difficult to separate into fields if some of them contain a comma (the same character that is being used as a separator), a space, or both.
+
+Example: Obtain the last field of `line` using the concepts learned before.
+
+```bash
+$ line="SUBJ20"," Age 22-30","VISIT1","1","DIAGN: Major Depressive Disorder, Single Episode, In Full Remission"
+$ IFS=',' read -a ARRAY >>> "$line"
+$ echo "The last fifth of line is: "${ARRAY[4]}
+The fifth field of line is: DIAGN: Major Depressive Disorder
+```
+
+However, this is not the correct result. The fifth field of `line` is `"DIAGN: Major Depressive Disorder, Single Episode, In Full Remission"`. But because we are using a comma as a separator, bash is separating this field into separate columns. To solve this problem, you can read from the file descriptor and save each field in a separate variable using the `read` utility. With `read` if one of the columns contains a comma but is surrounded by quotation marks, it will read the text inside the quotation marks as a single field.
+
+Suppose that you have a file called `example.csv` with the following content:
+"SUBJ1","Age 22-30","VISIT1","DIAGN: Major Depressive Disorder, Single Episode"
+"SUBJ2","Age 22-30","VISIT1","DIAGN: Bipolar, Schizophrenia"
+"SUBJ3","Age 22-30","VISIT1","DIAGN: Major Depressive Disorder"
+"SUBJ4","Age 22-30","VISIT1","DIAGN: Autism, Dyslexia, ADHD"
+And you want to read each line of the file and save the first and last fields into a new file called `result.csv`.
+
+You would accomplish that with the following code:
+
+```bash
+# Assign the file descriptor 3 (or any integer number) to example.csv
+$ exec 3< example.csv
+# Obtain the number of lines in the input file
+$ N=$(cat example.csv | wc -l)
+$ echo $N
+4
+# Iterate through all the lines of the file
+$ i=0
+$ while [ $((i++)) -lt $N ]
+> do
+> IFS=',' read -u 3 f1 f2 f3 f4 # Save each field in a different variable. Variable f1 will contain the 1st field, variable f2 the second field, etc.
+> echo "$f1,$f4" >> result.csv # Write the value of the first and last fields into the output file.
+> done
+# You must close the file descriptor using the following command (replace number 3 by the corresponding file descriptor)
+$ exec 3<&-
+# Read the content of the output file
+$ cat result.csv
+"SUBJ1","DIAGN: Major Depressive Disorder, Single Episode"
+"SUBJ2","DIAGN: Bipolar, Schizophrenia"
+"SUBJ3","DIAGN: Major Depressive Disorder"
+"SUBJ4","DIAGN: Autism, Dyslexia, ADHD"
+```
