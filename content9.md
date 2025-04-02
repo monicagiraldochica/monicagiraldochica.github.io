@@ -315,7 +315,7 @@ $ echo ${ARRAY[4]}
 i j
 ```
 
-## 9.3. Using the read command for more complex csv files
+## 9.3. Using the `read` command for more complex csv files
 
 So far, we have learned that using the `for` loop and the `cat` utility you can read each line of a file and separate it into different fields using a separator. However, csv files can become very difficult to separate into fields if some of them contain a comma (the same character that is being used as a separator), a space, or both.
 
@@ -361,4 +361,860 @@ $ cat result.csv
 "SUBJ2","DIAGN: Bipolar, Schizophrenia"
 "SUBJ3","DIAGN: Major Depressive Disorder"
 "SUBJ4","DIAGN: Autism, Dyslexia, ADHD"
+```
+
+## 9.4. Reading comma-separated CSV files using the read utility but no file descriptor
+
+In the following example we are going to read the same csv file from above called `example.csv`. The file has four columns. We are going to use the `while` loop to iterate through each line of the file and save the fields in variables `f1`, `f2`, `f3`, `f4`. Before starting to iterate, we have to tell bash that comma will be the separator in each line with `IFS=','`.
+
+```bash
+$ IFS=','
+$ i=1
+$ while read f1 f2 f3 f4
+> do
+> echo "Line $((i++)):"
+> echo "Field 1: $f1"
+> echo "Field 2: $f2"
+> echo "Field 3: $f3"
+> echo "Field 4: $f4"
+> done < example.csv
+Line 1:
+Field 1: "SUBJ1"
+Field 2: "Age 22-30"
+Field 3: "VISIT1"
+Field 4: "DIAGN: Major Depressive Disorder, Single Episode"
+Line 2:
+Field 1: "SUBJ2"
+Field 2: "Age 22-30"
+Field 3: "VISIT1"
+Field 4: "DIAGN: Bipolar, Schizophrenia"
+Line 3:
+Field 1: "SUBJ3"
+Field 2: "Age 22-30"
+Field 3: "VISIT1"
+Field 4: "DIAGN: Major Depressive Disorder"
+Line 4:
+Field 1: "SUBJ4"
+Field 2: "Age 22-30"
+Field 3: "VISIT1"
+Field 4: "DIAGN: Autism, Dyslexia, ADHD"
+```
+
+## 9.5. The `awk` and `grep` commands
+
+### `awk`
+
+`awk` is a bash program that scans files and process their content using patterns. It reads each line of a file or a group of files searching for the specified pattern and each time that it finds the pattern, performs an associated action. This tool can extract specific lines or columns from files, merge files, search the content of one file in the other, etc.
+
+When reading each line of the specified files, `awk` will separate it into fields (columns) using the blank space as a separator. If your file uses a different separator (i.e. a comma), you must specify your separator using the `-F` flag (see syntax below). The different fields will be denoted `$1`, `$2`, `$3`... etc. `$0` will refer to the entire line. If the field separator (`FS`) is null, each line will be split into one field per character.
+
+See the examples section for a better understanding of this command.
+
+Syntax: `awk [ -F fs ] [ -v var=value ] [ 'pattern {action}' ] [ files ] | [ other functions ]`
+
+| Command Section | Meaning |
+| --- | --- |
+| `-F fs` (optional) | Defines the input field separator to be the regular expression `fs`. Use this flag when the columns of your file use a separator other than a space. |
+| `-v var=variableName` (optional) | When the value that is being search is stored in a variable, you should use this flag. See below for examples on how to use this flag. |
+| `files` | List of files to be searched. |
+| other functions (optional) | You can apply to the output of `awk` other functions such as `head`, `tail`, `paste`, `grep`, etc. |
+
+### `grep`
+
+`grep` searches a given pattern or text in a file or list of files. `grep` is is able to find simple patterns and basic regular expressions, `egrep` can perform search of extended regular expressions. `fgrep` is quicker than both tools but can only handle fixed patterns. `zgrep`, `zegrep`, and `zfgrep` act like `grep`, `egrep`, and `fgrep`, respectively, but accept compressed files as input.
+
+See the examples section for a better understanding of this command.
+
+Syntax: `grep [flag] [pattern] [file(s)]`
+
+| `grep` Format | Meaning |
+| --- | --- |
+| `grep my_string files` | Search the list of files for lines that *contain* `my_string`. |
+| `grep '^my_expression' files` | Search for any lines that *start with* `my_expression` in the list of files. If `my_expression` contains a back slash, the special meaning of the next special character is turned off. If expression contains a dot that is not preceded by a black slash, it will match a single character of any value in the position of the dot. `grep '^string' file.txt` will search for any lines in `file.txt` that start with string. |
+| `grep 'my_expression$' files` | Search for any lines that *end with* `my_expression` in the list of files. If `my_expression` contains a back slash, the special meaning of the next special character is turned off. If expression contains a dot that is not preceded by a black slash, it will match a single character of any value in the position of the dot. `grep 'string$' file.txt` matches any lines in `file.txt` that end with `string`. `grep '^string$' file.txt` matches any lines in `file.txt` that start and end with `string`. |
+| `grep '[characters]' files` | Search for any lines that *contain any of the characters* enclosed between the brackets. Use a hyphen for a range of values. `grep '[abcde]' file.txt` matches any lines in `file.txt` that contain `a`, `b`, `c`, `d` or `e`. `grep '[Ss]tring' file.txt` matches any lines in `file.txt` that contain the words string or String. `grep 'B[ai][dt]' file.txt` matches any lines in `file.txt` that contain the words `Bad`, `Bat`, `Bid` or `Bit` (the second character can be `a` or `i` and the third character `d` or `t`). `grep '[0-9][0-9]' file.txt` matches any lines in `file.txt` that contain a pair of numeric digits. `grep '[a-zA-Z]' file.txt` matches any lines in `file.txt` with at least one letter. `grep '^$' file.txt` matches any empty lines. |
+| `grep '[^characters]' files` | Search for any lines that *don't contain* any of the characters enclosed between he brackets. Use a hyphen for a range of values. `grep '[^a-zA-Z0-9]' file.txt` matches any lines in `file.txt` that don't contain any letter or number (any lines that contain only special characters). |
+| `grep 'character*' files` | The character preceding the asterisk is optional when matching lines. `grep '"*smug"*' file.txt` matches any lines in `file.txt` that contain `smug` or `"smug"` (with or without the quotes that precede the asterisks). |
+| `grep 'my_expression\{n\}' files` | Match exactly `n` occurrences of `my_expression`. `grep '[0-9]\{3\}-[0-9]\{4\}' file.txt` matches any lines in `file.txt` that contain three digits, followed by a line and four digits. |
+| `grep 'expression \{n,\}' files` | Match `n` or more occurrences of expression. `grep '[0-9]\{3,\}' file.txt` matches any lines in `file.txt` that contain three or more digits. |
+
+| Flag | Meaning |
+| --- | --- |
+| `-A num` | Print `num` lines of trailing context after each match. |
+| `-B num` | Print `num` lines of leading context before each match.  |
+| `-C num` | Print `num` lines of leading and trailing context surrounding each match. If `num` is not specified, `num=2`. |
+| `-c` | Print the number of matched lines per file instead of the actual lines. |
+| `--color=when` | Mark up the matching text with the expression stored in the `GREP_COLOR` environment variable. The possible values of `when` can be: `never`, `always` or `auto`. |
+| `-d action` | Specify the demanded action for directories. The possible values of action are: `read` (default), which means that the directories are read in the same manner as normal files; `skip` to silently ignore the directories, and `recourse` to read them recursively, which has the same effect as the `-R` and `-r` option. |
+| `-e pattern` | To search for more than one pattern/expression, add the flag `-e` in front of each pattern/expression. |
+| `--exclude` | If specified, it excludes files matching the given filename pattern from the search. Note that `--exclude` patterns take priority over `--include` patterns. Patterns are matched to the full path specified, not only to the filename component. |
+| `--exclude-dir filename_pattern` | If `-R` is specified, it excludes directories matching the given `filename_pattern` from the search. |
+| `-f file` | Read one or more newline separated patterns from `file`. Empty pattern lines match every input line. Newlines are not considered part of a pattern. If `file` is empty, nothing is matched. |
+| `-h` | Omit the filename headers with output lines. |
+| `--help` | Print a brief help message. |
+| `--include` | If specified, only files matching the given filename pattern are searched. Note that `--exclude` patterns take priority over `--include` patterns. Patterns are matched to the full path specified, not only to the filename component. |
+| `--include-dir filename_pattern` | If `-R` is specified, only directories matching the given `filename_pattern` are searched. Note that `--exclude-dir` patterns take priority over `--include-dir` patterns. |
+| `-L` | Only the names of files not containing selected lines are listed. |
+| `-l` | Only the names of files containing selected lines are listed. |
+| `-m num` | Stop reading the file after num matches. |
+| `-n` | Each output line is preceded by its relative line number in the file, starting at line 1. The line number counter is reset for each file processed. This option is ignored if `-c`, `-L`, `-l`, or `-q` is specified. |
+| `--null` | Prints a zero-byte after the file name. |
+| `-O` | If `-R` is specified, follow symbolic links only if they were explicitly listed on the command line. The default is not to follow symbolic links. |
+| `-o` | Prints only the matching part of the lines. |
+| `-q` | Suppress normal output. |
+| `-R` or `-r` | Recursively search subdirectories listed. |
+| `-S` | If `-R` is specified, all symbolic links are followed. The default is not to follow symbolic links. |
+| `-s` | Suppress error messages from nonexistent or unreadable files. |
+| `-V` | Display version information and exit. |
+| `-v` | Selected lines are those not matching any of the specified patterns. |
+| `-w` | The expression is searched for as a whole word. |
+| `-x` | Show only the cases where the whole line equals the expression. |
+| `-Z` or `-z` | Accepts compressed input files. |
+| `--line-buffered` | Force output to be line buffered. By default, output is line buffered when standard output is a terminal and block buffered otherwise. |
+
+### Examples of `awk` and `grep`
+
+The following examples will show how to read and manipulate files using different command line tools. Each example will read one or more of the following files. `file1.csv` and `file3.csv` use comma as the separator between columns. On the other hand, `file2.txt` and file `file4.txt` use a space as the separator between columns.
+
+Content of `file1.csv`:
+"Anonymized ID","Subject Group","HASCONDITION","CONDITION"
+"B33199522","Group1","0",""
+"B33199603","Group3","0",""
+"B11137879","Group1","0",""
+"B11144410","Group2 b","0",""
+"B11110455","Group2 b","0",""
+"B11135291","Group3","0",""
+"B11153927","Group1","0",""
+"B11177579","Group2 b","0",""
+"B11177806","Group1","MD",""
+"B11157958","Group3","0",""
+"B11110690","Group3","0",""
+"B11152799","Group1","0",""
+"B11154358","Group1","0",""
+"B11110925","Group1","0",""
+"B11135291","Group3","9","mTBI"
+"B11135072","MISSING","0",""
+"B33199603","Group3","0",""
+"B11137879","Group1","0",""
+"B11110603","Group1","0",""
+"B11110927","Group1","0",""
+"B11147712","Group1","0",""
+"B33191224","Group2 b","0",""
+"B11131290","Group2 b","0",""
+"B11157974","Group1","0",""
+"B33191224","Group2 b","0",""
+"B11141503","Group3","0",""
+"C11137159","Group3","9","mTBI"
+"B33199522","Group1","0",""
+
+Content of `file2.txt`:
+"AnonymizedID" "SubjectGroup" "TEST1" "TEST2"
+"B11130912" "Group2b" "900" "MissingData"
+"B11137244" "Group1" "450" "555"
+"B11154534" "Group1" "456" "456"
+"B11144100" "Group1" "450" "886"
+"B11137244" "Group1" "450" "456"
+"B12226566" "Group2b" "450" "MissingData"
+"B11134987" "Group1" "900" "MissingData"
+"B11144345" "Group1" "900" "776"
+"C11137159" "Group3" "MissingData" "MissingData"
+"B11156453" "Group4" "456" "2"
+"B11110676" "Group1" "900" "10"
+"C11138929" "Group2b" "2" "MissingData"
+"B11154532" "Group1" "456" "886"
+"B11155267" "Group3" "900" "10"
+"B11137120" "Group2b" "450" "456"
+"B33191224" "Group2b" "450" "776"
+"B11155267" "Group3" "900" "10"
+"C11138999" "Group2b" "900" "MissingData"
+"B11131605" "Group1" "456" "MissingData"
+"B11137784" "Group1" "900" "436"
+"B11156098" "Group1" "500" "886"
+"B11133232" "Group1" "500" "MissingData"
+"B11135292" "Group3" "MissingData" "MissingData"
+"C11138912" "Group2b" "900" "MissingData"
+"B11150911" "Group2b" "900" "117"
+"B11152577" "Group1" "900" "756"
+"B11156098" "Group1" "456" "886"
+"B11133232" "Group1" "456" "MissingData"
+
+Content of `file3.csv`:
+Anonymized ID,Subject Group,AGE
+C11138122,MISSING,21
+C11138192,Group1,54
+B12226507,Group1,68
+B12226546,Group1,67
+C11138122,Group1,24
+C11138184,Group1,59
+C11138797,Group1,22
+C11138152,Group1,53
+C11138150,Group1,41
+C11137167,Group3,14
+C11137159,Group3,13
+C11137167,Group3,16
+C11137159,Group3,13
+C11131039,Group2 b,67
+C11135566,Group2 b,73
+B11119903,Group2 b,83
+C11137544,Group1,21
+C11137443,Group3,11
+C11137123,Group2 b,69
+C11137439,Group3,79
+C11137439,Group3,15
+C11133100,Group1,23
+D11144030,Group3,13
+B11108399,Group1,23
+B11108326,Group1,59
+B11119909,Group2 b,61
+B11110893,Group1,28
+
+Content of `file4.txt`:
+AnonymizedID SubjectGroup AGE
+B11108326 Group1 59
+B11108399 Group1 23
+B11110893 Group1 28
+B11119909 Group2 61
+D11144030 Group3 11
+D11144030 Group3 13
+B11119903 Group2 84
+C11131039 Group2 67
+C11133100 Group1 23
+C11135566 Group2 72
+C11137159 Group3 11
+C11137159 Group3 12
+C11137167 Group3 14
+C11137167 Group3 16
+C11137439 Group3 15
+C11137439 Group3 79
+C11137443 Group3 15
+C11137544 Group1 22
+C11137123 Group2 68
+C11138150 Group1 44
+C11138152 Group1 10
+C11138797 Group1 24
+C11138184 Group1 57
+C11138122 Group1 23
+C11138122 MISSING 25
+C11138192 Group1 45
+B12226507 Group1 26
+B12226546 Group1 55
+
+#### Examples: Reading specific columns from a file or a list of files
+
+##### Example 1: Print the first column of each file.
+
+In order to print the first column of these files, we will use `awk` utility. As it was shown before, the command for this utility consists on some optional flags followed by an action statement, and then the list of files. In this case, the action statement is `'{print $1}'`, because we want to print only the first column (`$1`). Files `file2.txt` and `file4.txt` use a space as a column separator (which is the separator for default). So, to access the first column of these files we don't need the `-F` flag. However, files `file1.csv` and `file3.csv` use a comma as a separator. So, in order for `awk` to distinguish the different columns, we have to use the `-F` flag. In this case, the parameter of the `-F` flag is a comma (`-F','`). If you are trying to read a file which has the columns separated by a different character, then use that character instead of `','`.
+
+Space-separated files:
+
+```bash
+$ awk '{print $1}' file2.txt
+"AnonymizedID"
+"B11130912"
+"B11137244"
+"B11154534"
+"B11144100"
+"B11137244"
+"B12226566"
+"B11134987"
+"B11144345"
+"C11137159"
+"B11156453"
+"B11110676"
+"C11138929"
+"B11154532"
+"B11155267"
+"B11137120"
+"B33191224"
+"B11155267"
+"C11138999"
+"B11131605"
+"B11137784"
+"B11156098"
+"B11133232"
+"B11135292"
+"C11138912"
+"B11150911"
+"B11152577"
+"B11156098"
+"B11133232"
+
+$ awk '{print $1}' file4.txt
+AnonymizedID
+B11108326
+B11110893
+B11119909
+D11144030
+D11144030
+B11119903
+C11131039
+C11133100
+C11135566
+C11137159
+C11137159
+C11137167
+C11137167
+C11137439
+C11137439
+C11137443
+C11137544
+C11137123
+C11138150
+C11138152
+C11138797
+C11138184
+C11138122
+C11138122
+C11138192
+B12226507
+B12226546
+```
+
+Comma-separated files:
+
+```bash
+$ awk -F',' '{print $1}' file1.csv
+"Anonymized ID"
+"B33199522"
+"B33199603"
+"B11137879"
+"B11144410"
+"B11110455"
+"B11135291"
+"B11153927"
+"B11177579"
+"B11177806"
+"B11157958"
+"B11110690"
+"B11152799"
+"B11154358"
+"B11110925"
+"B11135291"
+"B11135072"
+"B33199603"
+"B11137879"
+"B11131605"
+"B11110927"
+"B11147712"
+"B33191224"
+"B11131290"
+"B11157974"
+"B33191224"
+"B11141503"
+"C11137159"
+"B33199522"
+
+$ awk -F',' '{print $1}' file3.csv
+AnonymizedID
+C11138122
+C11138192
+B12226507
+B12226546
+C11138122
+C11138184
+C11138797
+C11138152
+C11138150
+C11137167
+C11137159
+C11137167
+C11137159
+C11131039
+C11135566
+B11119903
+C11137544
+C11137443
+C11137123
+C11137439
+C11137439
+C11133100
+D11144030
+B11108399
+B11108326
+B11119909
+B11110893
+```
+
+To precede each line by the line number, add `NR` after `print` in the `awk` command to indicate that you want to print the Number Row before the column 1 (`$1`):
+
+Space-separated files:
+
+```bash
+$ awk '{print NR,$1}' file2.txt
+1 "AnonymizedID"
+2 "B11130912"
+3 "B11137244"
+4 "B11154534"
+5 "B11144100"
+6 "B11137244"
+7 "B12226566"
+8 "B11134987"
+9 "B11144345"
+10 "C11137159"
+11 "B11156453"
+12 "B11110676"
+13 "C11138929"
+14 "B11154532"
+15 "B11155267"
+16 "B11137120"
+17 "B33191224"
+18 "B11155267"
+19 "C11138999"
+20 "B11131605"
+21 "B11137784"
+22 "B11156098"
+23 "B11133232"
+24 "B11135292"
+25 "C11138912"
+26 "B11150911"
+27 "B11152577"
+28 "B11156098"
+29 "B11133232"
+
+$ awk '{print NR, $1}' file4.txt
+1 AnonymizedID
+2 B11108326
+3 B11110893
+4 B11119909
+5 D11144030
+6 D11144030
+7 B11119903
+8 C11131039
+9 C11133100
+10 C11135566
+11 C11137159
+12 C11137159
+13 C11137167
+14 C11137167
+15 C11137439
+16 C11137439
+17 C11137443
+18 C11137544
+19 C11137123
+20 C11138150
+21 C11138152
+22 C11138797
+23 C11138184
+24 C11138122
+25 C11138122
+26 C11138192
+27 B12226507
+28 B12226546
+```
+
+Comma-separated files:
+```bash
+$ awk -F',' '{print NR, $1}' file1.csv
+1 "Anonymized ID"
+2 "B33199522"
+3 "B33199603"
+4 "B11137879"
+5 "B11144410"
+6 "B11110455"
+7 "B11135291"
+8 "B11153927"
+9 "B11177579"
+10 "B11177806"
+11 "B11157958"
+12 "B11110690"
+13 "B11152799"
+14 "B11154358"
+15 "B11110925"
+16 "B11135291"
+17 "B11135072"
+18 "B33199603"
+19 "B11137879"
+20 "B11131605"
+21 "B11110927"
+22 "B11147712"
+23 "B33191224"
+24 "B11131290"
+25 "B11157974"
+26 "B33191224"
+27 "B11141503"
+28 "C11137159"
+29 "B33199522"
+
+$ awk -F',' '{print NR, $1}' file3.csv
+1 Anonymized ID
+2 C11138122
+3 C11138192
+4 B12226507
+5 B12226546
+6 C11138122
+7 C11138184
+8 C11138797
+9 C11138152
+10 C11138150
+11 C11137167
+12 C11137159
+13 C11137167
+14 C11137159
+15 C11131039
+16 C11135566
+17 B11119903
+18 C11137544
+19 C11137443
+20 C11137123
+21 C11137439
+22 C11137439
+23 C11133100
+24 D11144030
+25 B11108399
+26 B11108326
+27 B11119909
+28 B11110893
+```
+
+##### Example 2: Print the first column of `file1.csv` and `file2.txt` in reverse order
+
+In order to print from the last line to the first line, you can use the command `tail` with the flag `-r` (for reverse) after the command `awk`. The command line will first execute the `awk` command, which is written before the `|` symbol, and then it will run the `tail` command, which inverts the order of the previous output. Remember that for `file1.csv` you need to use `-F','` to indicate that the columns are separated by commas and not spaces.
+
+Space-separated file:
+
+```bash
+$ awk '{print $1}' file2.txt | tail -r
+"B11133232"
+"B11156098"
+"B11152577"
+"B11150911"
+"C11138912"
+"B11135292"
+"B11133232"
+"B11156098"
+"B11137784"
+"B11131605"
+"C11138999"
+"B11155267"
+"B33191224"
+"B11137120"
+"B11155267"
+"B11154532"
+"C11138929"
+"B11110676"
+"B11156453"
+"C11137159"
+"B11144345"
+"B11134987"
+"B12226566"
+"B11137244"
+"B11144100"
+"B11154534"
+"B11137244"
+"B11130912"
+"AnonymizedID"
+```
+
+Comma-separated file:
+
+```bash
+$ awk -F',' '{print $1}' file1.csv | tail -r
+"B33199522"
+"C11137159"
+"B11141503"
+"B33191224"
+"B11157974"
+"B11131290"
+"B33191224"
+"B11147712"
+"B11110927"
+"B11110603"
+"B11137879"
+"B33199603"
+"B11135072"
+"B11135291"
+"B11110925"
+"B11154358"
+"B11152799"
+"B11110690"
+"B11157958"
+"B11177806"
+"B11177579"
+"B11153927"
+"B11135291"
+"B11110455"
+"B11144410"
+"B11137879"
+"B33199603"
+"B33199522"
+"Anonymized ID"
+```
+
+The same as in example 1, to precede each line by the line number, add `NR` after `print` in the `awk` command to indicate that you want to print the Number Row before the column 1 (`$1`):
+
+Space-separated file:
+
+```bash
+$ awk '{print NR, $1}' file2.txt | tail -r
+29 "B11133232"
+28 "B11156098"
+27 "B11152577"
+26 "B11150911"
+25 "C11138912"
+24 "B11135292"
+23 "B11133232"
+22 "B11156098"
+21 "B11137784"
+20 "B11131605"
+19 "C11138999"
+18 "B11155267"
+17 "B33191224"
+16 "B11137120"
+15 "B11155267"
+14 "B11154532"
+13 "C11138929"
+12 "B11110676"
+11 "B11156453"
+10 "C11137159"
+9 "B11144345"
+8 "B11134987"
+7 "B12226566"
+6 "B11137244"
+5 "B11144100"
+4 "B11154534"
+3 "B11137244"
+2 "B11130912"
+1 "AnonymizedID"
+```
+
+Comma-separated file:
+
+```bash
+$ awk -F',' '{print NR, $1}' file1.csv | tail -r
+29 "B33199522"
+28 "C11137159"
+27 "B11141503"
+26 "B33191224"
+25 "B11157974"
+24 "B11131290"
+23 "B33191224"
+22 "B11147712"
+21 "B11110927"
+20 "B11110603"
+19 "B11137879"
+18 "B33199603"
+17 "B11135072"
+16 "B11135291"
+15 "B11110925"
+14 "B11154358"
+13 "B11152799"
+12 "B11110690"
+11 "B11157958"
+10 "B11177806"
+9 "B11177579"
+8 "B11153927"
+7 "B11135291"
+6 "B11110455"
+5 "B11144410"
+4 "B11137879"
+3 "B33199603"
+2 "B33199522"
+1 "Anonymized ID"
+```
+
+##### Example 3: Print the second and third columns of `file2.txt`
+
+In the previous examples we used the action statement `'{print $1}'` to print the first column. Since we now want to print the second and third columns instead of the first one, we replace `$1` by `$2,$3`. If you wanted to print columns 4 and 5 instead, you would simply use `$4,$5`, etc.
+
+```bash
+$ awk '{print $2,$3}' file2.txt
+"SubjectGroup" "TEST1"
+"Group2b" "900"
+"Group1" "450"
+"Group1" "456"
+"Group1" "450"
+"Group1" "450"
+"Group2b" "450"
+"Group1" "900"
+"Group1" "900"
+"Group3" "MissingData"
+"Group4" "456"
+"Group1" "900"
+"Group2b" "2"
+"Group1" "456"
+"Group3" "900"
+"Group2b" "450"
+"Group2b" "450"
+"Group3" "900"
+"Group2b" "900"
+"Group1" "456"
+"Group1" "900"
+"Group1" "500"
+"Group1" "500"
+"Group3" "MissingData"
+"Group2b" "900"
+"Group2b" "900"
+"Group1" "900"
+"Group1" "456"
+"Group1" "456"
+```
+
+To precede each line by the line number, add `NR` after `print` in the `awk` command to indicate that you want to print the Number Row before the column 1 (`$1`):
+
+```bash
+$ awk '{print NR,$2,$3}' file2.txt
+1 "SubjectGroup" "TEST1"
+2 "Group2b" "900"
+3 "Group1" "450"
+4 "Group1" "456"
+5 "Group1" "450"
+6 "Group1" "450"
+7 "Group2b" "450"
+8 "Group1" "900"
+9 "Group1" "900"
+10 "Group3" "MissingData"
+11 "Group4" "456"
+12 "Group1" "900"
+13 "Group2b" "2"
+14 "Group1" "456"
+15 "Group3" "900"
+16 "Group2b" "450"
+17 "Group2b" "450"
+18 "Group3" "900"
+19 "Group2b" "900"
+20 "Group1" "456"
+21 "Group1" "900"
+22 "Group1" "500"
+23 "Group1" "500"
+24 "Group3" "MissingData"
+25 "Group2b" "900"
+26 "Group2b" "900"
+27 "Group1" "900"
+28 "Group1" "456"
+29 "Group1" "456"
+```
+
+##### Example 4: Print the second and third columns of `file1.csv` in reverse orfer
+
+In order to print the output in reverse order for `file1.csv`, use the `tail -r` command after the `awk`.
+
+```bash
+$ awk -F',' '{print $2,$3}' file1.csv | tail -r
+"Group1" "0"
+"Group3" "9"
+"Group3" "0"
+"Group2 b" "0"
+"Group1" "0"
+"Group2 b" "0"
+"Group2 b" "0"
+"Group1" "0"
+"Group1" "0"
+"Group1" "0"
+"Group1" "0"
+"Group3" "0"
+"MISSING" "0"
+"Group3" "9"
+"Group1" "0"
+"Group1" "0"
+"Group1" "0"
+"Group3" "0"
+"Group3" "0"
+"Group1" "MD"
+"Group2 b" "0"
+"Group1" "0"
+"Group3" "0"
+"Group2 b" "0"
+"Group2 b" "0"
+"Group1" "0"
+"Group3" "0"
+"Group1" "0"
+"Subject Group" "HASCONDITION"
+```
+
+To precede each line by the line number, add `NR` after `print` in the `awk` command to indicate that you want to print the Number Row before the column 1 (`$1`):
+
+```bash
+$ awk -F',' '{print NR,$2,$3}' file1.csv | tail -r
+29 "Group1" "0"
+28 "Group3" "9"
+27 "Group3" "0"
+26 "Group2 b" "0"
+25 "Group1" "0"
+24 "Group2 b" "0"
+23 "Group2 b" "0"
+22 "Group1" "0"
+21 "Group1" "0"
+20 "Group1" "0"
+19 "Group1" "0"
+18 "Group3" "0"
+17 "MISSING" "0"
+16 "Group3" "9"
+15 "Group1" "0"
+14 "Group1" "0"
+13 "Group1" "0"
+12 "Group3" "0"
+11 "Group3" "0"
+10 "Group1" "MD"
+9 "Group2 b" "0"
+8 "Group1" "0"
+7 "Group3" "0"
+6 "Group2 b" "0"
+5 "Group2 b" "0"
+4 "Group1" "0"
+3 "Group3" "0"
+2 "Group1" "0"
+1 "Subject Group" "HASCONDITION"
+```
+
+##### Example 5: Print all the columns of `file1.csv` showing the lines in reverse order.
+
+To print all the columns of a file using `awk`, use `$0` (instead of a column number). Or use the command `cat`.
+
+Using `awk`: `awk -F',' '{print $0}' file1.csv | tail -r`
+Using `cat`: `cat file1.csv | tail -r`
+
+##### Example 6: Print all the columns of `file1.csv` in reversed order (first the third column, then the second and finally the first one), and save the re-ordered columns in a new file called file1_reordered.csv
+
+If you were going to print the columns one to three in normal order, you would use `'{print $1,$2,$3}'`. To print them in reverse order, you just reverse the order of the columns in print, like so: `'{print $3,$2,$1}'`.
+
+To save the output to a file instead of showing it in the terminal, use `>>` file as explained in previous sections.
+Remember to use the `-F','` flag to indicate that the columns are separated by commas, and not the default space.
+
+```bash
+awk -F',' '{print $3,$2,$1}' file1.csv >> file1_reordered.csv
+```
+
+##### Example 7: Print the columns and lines of `file1.csv` in reverse order
+
+Use the same command as before, adding `| tail -r` at the end to invert also the lines.
+
+```bash
+awk -F',' '{print $3,$2,$1}' file1.csv | tail -r
+```
+
+##### Example 8: Read the second column of `file1.csv` and save it into an array
+
+When saving a column of a file into an array, you must specify that the elements of the array are separated by new lines (`'\n'`). You do this using the command `IFS=$'\n'`.
+
+The elements of the array will be saved in the variable `ARRAY`. As it was learned in previous chapters, to access the individual elements of `ARRAY` you use the syntax `${ARRAY[index]}`. With `index` starting at 0. So, to access the first element the command is `echo ${ARRAY[0]}`. To access the second element it is `echo ${ARRAY[1]}`, etc. Type `echo ${ARRAY[@]}` to view all the elements of the array.
+
+Remember, the system variable `IFS` contains the separator that is being used to separate each feld within the lines of a file. You can change the value of this variable at any time by using `IFS='character'`, where `character` is the one separating the fields.
+
+```bash
+$ IFS=$'\n'
+$ ARRAY=($(awk -F',' '{print $2}' file1.csv))
+$ echo ${ARRAY[0]}
+"Subject Group"
+$ echo ${ARRAY[1]}
+"Group1"
+$ echo ${ARRAY[@]}
+"Subject Group" "Group1" "Group3" "Group1" "Group2 b" "Group2 b" "Group3" "Group1" "Group2 b" "Group1" "Group3" "Group3" "Group1" "Group1" "Group1" "Group3" "MISSING" "Group3" "Group1" "Group1" "Group1" "Group1" "Group2 b" "Group2 b" "Group1" "Group2 b" "Group3" "Group3" "Group1"
+$ echo ${#ARRAY[@]}
+29
+```
+
+##### Example 9: Print the first column of `file2.txt` followed by the first column of `file4.txt`
+
+To print a specific column for more than one file, you use the same command, adding the list of files you want to print after the first one. However, all the files in the list must use the same column separator (in this case it's a space). Since the column separator for this list of files is a space (the default), you don't need to use the `-F` flag.
+
+```bash
+awk '{print $1}' file2.txt file4.txt
+```
+
+##### Example 10: Print the first column of `file3.csv` followed by the first column of `file1.csv`.
+
+Since the column separator for this list of files is a comma, you need to use the `-F','` flag.
+
+```bash
+awk -F',' '{print $1}' file3.csv file1.csv
 ```
