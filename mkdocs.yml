@@ -1,0 +1,4 @@
+site_name: Monica Keith
+nav:
+  - Home: index.md
+  - Tutorials: tutorials.md
