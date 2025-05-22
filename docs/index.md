@@ -1,6 +1,12 @@
 # About me
 
-I am a Computer Engineer and Neuroscientist. In neuroscience research, one of the biggest challenges is the amount of computing resources that are needed to run certain experiments and analyze some neuroimaging data. As an engineer, my focus (when I worked in research) was to find better ways to manage these resources so that results can be replicable, reliable and available on time. Now I work at MCW Research Computing Center. Our team is in charge of maintaining the cluster and giving support to the users. This includes (but not limited to) the installation, debugging, parallelization and performance tuning of research software. Managing the scheduler and resource allocation, staff and students accounts, developing training seminars and documentation, etc.
+## Professional
+
+I am a Computer Engineer at the Research Computing Center of the Medical College of Wisconsin. Our team is responsible for maintaining the high-performance computing (HPC) cluster and providing support to the users. This includes (but is not limited to) the installation, debugging, parallelization and performance tuning of research software; managing the scheduler and resource allocation; administering staff and students accounts; conducting quarterly cluster maintenance; developing and delivering training seminars; and maintaining our [documentation](https://docs.rcc.mcw.edu/) and [YouTube channel](https://www.youtube.com/channel/UC2FsgYZHYY9kUFuZ_9solEw).
+
+I love programming, particularly in Python and Bash (see my [bash tutorial](https://monicagiraldochica.github.io/bash_tutorial/)). I like automating repetitive tasks and workflows, not only to increase efficiency but also to reduce the potential for human error. Automation ensures greater consistency and makes debugging easier when issues arise.
+
+I'm also deeply interested in the power of parallel computing for scientific research. Leveraging cluster computing to process large datasets and perform complex computations enables discoveries that would otherwise be unattainable. During my time as a neuroscientist, I applied my software development skills to analyze extensive magnetic resonance imaging (MRI) and behavioral datasets — often collected over several years. These analyses would not have been feasible without the support of HPC resources.
 
 ## Social media
 

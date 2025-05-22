@@ -1,4 +1,5 @@
 site_name: Monica Keith
+site_author: Monica Keith
 nav:
   - Home: index.md
   - Tutorials: tutorials.md
