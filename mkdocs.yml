@@ -2,11 +2,6 @@ site_name: Monica Keith
 site_author: Monica Keith
 theme:
   name: mkdocs
-  logo: img/favicon.ico
-extra:
-  social:
-    - icon: fontawesome/brands/linkedin
-      link: https://www.linkedin.com/in/monicakeithmri/
 nav:
   - Home: index.md
   - Tutorials: tutorials.md
